@@ -23,4 +23,3 @@ check:
 
 clean:
 	rm -f $(EXE)
-
