@@ -331,11 +331,6 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 
         /* velocity squared */
         double u_sq = u_x * u_x + u_y * u_y;
-
-        /* directional velocity components */
-        double u[NSPEEDS];
-        u[8] =   u_x - u_y;  /* south-east */
-
         /* equilibrium densities */
         double d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
