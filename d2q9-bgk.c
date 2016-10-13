@@ -388,6 +388,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 
   return EXIT_SUCCESS;
 }
+
 double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 {
   int    tot_cells = 0;  /* no. of cells used in calculation */
