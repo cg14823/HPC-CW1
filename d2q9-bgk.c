@@ -286,7 +286,7 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
-  const double c_sq = 1.0 / 3.0; /* square of speed of sound */
+  //const double c_sq = 1.0 / 3.0; /* square of speed of sound */
   //const double w0 = 4.0 / 9.0;  /* weighting factor */
   //const double w1 = 1.0 / 9.0;  /* weighting factor */
   //const double w2 = 1.0 / 36.0; /* weighting factor */
@@ -334,34 +334,34 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         /* equilibrium densities */
         double d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
-        d_equ[0] = (4.0 / 9.0) * local_density
-                   * (1.0 - u_sq / (2.0 * c_sq));
+        d_equ[0] = (0.44444444444444442) * local_density
+                   * (1.0 - u_sq / (2.0 * 0.33333333333333331));
         /* axis speeds: weight w1 */
-        d_equ[1] = (1.0 / 9.0) * local_density * (1.0 +  u_x / c_sq
-                                         + ( u_x *  u_x) / (2.0 * c_sq * c_sq)
-                                         - u_sq / (2.0 * c_sq));
-        d_equ[2] = (1.0 / 9.0) * local_density * (1.0 + u_y / c_sq
-                                         + (u_y * u_y) / (2.0 * c_sq * c_sq)
-                                         - u_sq / (2.0 * c_sq));
-        d_equ[3] = (1.0 / 9.0) * local_density * (1.0 - u_x / c_sq
-                                         + (u_x * u_x) / (2.0 * c_sq * c_sq)
-                                         - u_sq / (2.0 * c_sq));
-        d_equ[4] = (1.0 / 9.0) * local_density * (1.0 - u_y / c_sq
-                                         + (u_y * u_y) / (2.0 * c_sq * c_sq)
-                                         - u_sq / (2.0 * c_sq));
+        d_equ[1] = (0.1111111111111111) * local_density * (1.0 +  u_x / 0.33333333333333331
+                                         + ( u_x *  u_x) / (2.0 * 0.33333333333333331 * 0.33333333333333331)
+                                         - u_sq / (2.0 * 0.33333333333333331));
+        d_equ[2] = (0.1111111111111111) * local_density * (1.0 + u_y / 0.33333333333333331
+                                         + (u_y * u_y) / (2.0 * 0.33333333333333331 * 0.33333333333333331)
+                                         - u_sq / (2.0 * 0.33333333333333331));
+        d_equ[3] = (0.1111111111111111) * local_density * (1.0 - u_x / 0.33333333333333331
+                                         + (u_x * u_x) / (2.0 * 0.33333333333333331 * 0.33333333333333331)
+                                         - u_sq / (2.0 * 0.33333333333333331));
+        d_equ[4] = (0.1111111111111111) * local_density * (1.0 - u_y / 0.33333333333333331
+                                         + (u_y * u_y) / (2.0 * 0.33333333333333331 * 0.33333333333333331)
+                                         - u_sq / (2.0 * 0.33333333333333331));
         /* diagonal speeds: weight w2 */
-        d_equ[5] = (1.0 / 36.0) * local_density * (1.0 +  (u_x + u_y) / c_sq
-                                         + (( u_x + u_y) * ( u_x + u_y)) / (2.0 * c_sq * c_sq)
-                                         - u_sq / (2.0 * c_sq));
-        d_equ[6] = (1.0 / 36.0) * local_density * (1.0 + ( -u_x + u_y) / c_sq
-                                         + ((-u_x + u_y) * (-u_x + u_y)) / (2.0 * c_sq * c_sq)
-                                         - u_sq / (2.0 * c_sq));
-        d_equ[7] = (1.0 / 36.0) * local_density * (1.0 + ( -u_x - u_y) / c_sq
-                                         + (( -u_x - u_y) * ( -u_x - u_y)) / (2.0 * c_sq * c_sq)
-                                         - u_sq / (2.0 * c_sq));
-        d_equ[8] = (1.0 / 36.0) * local_density * (1.0 + (u_x - u_y) / c_sq
-                                         + ((u_x - u_y) * (u_x - u_y)) / (2.0 * c_sq * c_sq)
-                                         - u_sq / (2.0 * c_sq));
+        d_equ[5] = (0.027777777777777776) * local_density * (1.0 +  (u_x + u_y) / 0.33333333333333331
+                                         + (( u_x + u_y) * ( u_x + u_y)) / (2.0 * 0.33333333333333331 * 0.33333333333333331)
+                                         - u_sq / (2.0 * 0.33333333333333331));
+        d_equ[6] = (0.027777777777777776) * local_density * (1.0 + ( -u_x + u_y) / 0.33333333333333331
+                                         + ((-u_x + u_y) * (-u_x + u_y)) / (2.0 * 0.33333333333333331 * 0.33333333333333331)
+                                         - u_sq / (2.0 * 0.33333333333333331));
+        d_equ[7] = (0.027777777777777776) * local_density * (1.0 + ( -u_x - u_y) / 0.33333333333333331
+                                         + (( -u_x - u_y) * ( -u_x - u_y)) / (2.0 * 0.33333333333333331 * 0.33333333333333331)
+                                         - u_sq / (2.0 * 0.33333333333333331));
+        d_equ[8] = (0.027777777777777776) * local_density * (1.0 + (u_x - u_y) / 0.33333333333333331
+                                         + ((u_x - u_y) * (u_x - u_y)) / (2.0 * 0.33333333333333331 * 0.33333333333333331)
+                                         - u_sq / (2.0 * 0.33333333333333331));
 
         /* relaxation step */
         for (int kk = 0; kk < NSPEEDS; kk++)

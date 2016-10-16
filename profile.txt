@@ -1,8 +1,8 @@
 Flat profile:
-
+-gcc std=c99 -Wall -O3 -pg -DDEBUG afeter removal of w-0-1-2 time increasing probably depending on the time it takes to do divisions
 Each sample counts as 0.01 seconds.
-  %   cumulative   self              self     total           
- time   seconds   seconds    calls  ms/call  ms/call  name    
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
  68.25    129.31   129.31    40000     3.23     3.23  collision
  13.55    154.97    25.67    40001     0.64     0.64  av_velocity
  12.06    177.82    22.84    40000     0.57     0.57  propagate
@@ -24,13 +24,13 @@ seconds    function alone.  This is the major sort for this
 
 calls      the number of times this function was invoked, if
            this function is profiled, else blank.
- 
+
  self      the average number of milliseconds spent in this
 ms/call    function per call, if this function is profiled,
 	   else blank.
 
  total     the average number of milliseconds spent in this
-ms/call    function and its descendents per call, if this 
+ms/call    function and its descendents per call, if this
 	   function is profiled, else blank.
 
 name       the name of the function.  This is the minor sort
