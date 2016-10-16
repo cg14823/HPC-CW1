@@ -1,15 +1,16 @@
 Flat profile:
-gcc -std=c99 -Wall -O3 -pg -DDEBUG replaced variables with expresion
+
 Each sample counts as 0.01 seconds.
-  %   cumulative   self              self     total
- time   seconds   seconds    calls  ms/call  ms/call  name
- 68.21    129.07   129.07    40000     3.23     3.23  collision
- 12.87    153.43    24.35    40001     0.61     0.61  av_velocity
- 11.97    176.07    22.64    40000     0.57     0.57  propagate
-  7.06    189.42    13.35                             main
-  0.00    189.42     0.00        1     0.00     0.00  finalise
-  0.00    189.42     0.00        1     0.00     0.00  initialise
-  0.00    189.42     0.00        1     0.00     0.00  write_values
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 68.25    129.31   129.31    40000     3.23     3.23  collision
+ 13.55    154.97    25.67    40001     0.64     0.64  av_velocity
+ 12.06    177.82    22.84    40000     0.57     0.57  propagate
+  6.25    189.66    11.84                             main
+  0.00    189.66     0.00        1     0.00     0.64  calc_reynolds
+  0.00    189.66     0.00        1     0.00     0.00  finalise
+  0.00    189.66     0.00        1     0.00     0.00  initialise
+  0.00    189.66     0.00        1     0.00     0.00  write_values
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -23,13 +24,13 @@ seconds    function alone.  This is the major sort for this
 
 calls      the number of times this function was invoked, if
            this function is profiled, else blank.
-
+ 
  self      the average number of milliseconds spent in this
 ms/call    function per call, if this function is profiled,
 	   else blank.
 
  total     the average number of milliseconds spent in this
-ms/call    function and its descendents per call, if this
+ms/call    function and its descendents per call, if this 
 	   function is profiled, else blank.
 
 name       the name of the function.  This is the minor sort
@@ -41,35 +42,41 @@ name       the name of the function.  This is the minor sort
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 2 byte(s) for 0.01% of 189.42 seconds
+granularity: each sample hit covers 2 byte(s) for 0.01% of 189.66 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]    100.0   13.35  176.07                 main [1]
-              129.07    0.00   40000/40000       collision [2]
-               24.35    0.00   40001/40001       av_velocity [3]
-               22.64    0.00   40000/40000       propagate [4]
-                0.00    0.00       1/1           initialise [6]
-                0.00    0.00       1/1           write_values [7]
-                0.00    0.00       1/1           finalise [5]
+[1]    100.0   11.84  177.82                 main [1]
+              129.31    0.00   40000/40000       collision [2]
+               25.66    0.00   40000/40001       av_velocity [3]
+               22.84    0.00   40000/40000       propagate [4]
+                0.00    0.00       1/1           calc_reynolds [5]
+                0.00    0.00       1/1           initialise [7]
+                0.00    0.00       1/1           write_values [8]
+                0.00    0.00       1/1           finalise [6]
 -----------------------------------------------
-              129.07    0.00   40000/40000       main [1]
-[2]     68.1  129.07    0.00   40000         collision [2]
+              129.31    0.00   40000/40000       main [1]
+[2]     68.2  129.31    0.00   40000         collision [2]
 -----------------------------------------------
-               24.35    0.00   40001/40001       main [1]
-[3]     12.9   24.35    0.00   40001         av_velocity [3]
+                0.00    0.00       1/40001       calc_reynolds [5]
+               25.66    0.00   40000/40001       main [1]
+[3]     13.5   25.67    0.00   40001         av_velocity [3]
 -----------------------------------------------
-               22.64    0.00   40000/40000       main [1]
-[4]     12.0   22.64    0.00   40000         propagate [4]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[5]      0.0    0.00    0.00       1         finalise [5]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[6]      0.0    0.00    0.00       1         initialise [6]
+               22.84    0.00   40000/40000       main [1]
+[4]     12.0   22.84    0.00   40000         propagate [4]
 -----------------------------------------------
                 0.00    0.00       1/1           main [1]
-[7]      0.0    0.00    0.00       1         write_values [7]
+[5]      0.0    0.00    0.00       1         calc_reynolds [5]
+                0.00    0.00       1/40001       av_velocity [3]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[6]      0.0    0.00    0.00       1         finalise [6]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[7]      0.0    0.00    0.00       1         initialise [7]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[8]      0.0    0.00    0.00       1         write_values [8]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -157,6 +164,6 @@ index % time    self  children    called     name
 
 Index by function name
 
-   [3] av_velocity             [6] initialise              [7] write_values
+   [3] av_velocity             [6] finalise                [4] propagate
+   [5] calc_reynolds           [7] initialise              [8] write_values
    [2] collision               [1] main
-   [5] finalise                [4] propagate
