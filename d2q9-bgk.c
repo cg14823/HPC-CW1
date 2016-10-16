@@ -334,32 +334,32 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         /* equilibrium densities */
         double d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
-        d_equ[0] = w0 * local_density
+        d_equ[0] = (4.0 / 9.0) * local_density
                    * (1.0 - u_sq / (2.0 * c_sq));
         /* axis speeds: weight w1 */
-        d_equ[1] = w1 * local_density * (1.0 +  u_x / c_sq
+        d_equ[1] = (1.0 / 9.0) * local_density * (1.0 +  u_x / c_sq
                                          + ( u_x *  u_x) / (2.0 * c_sq * c_sq)
                                          - u_sq / (2.0 * c_sq));
-        d_equ[2] = w1 * local_density * (1.0 + u_y / c_sq
+        d_equ[2] = (1.0 / 9.0) * local_density * (1.0 + u_y / c_sq
                                          + (u_y * u_y) / (2.0 * c_sq * c_sq)
                                          - u_sq / (2.0 * c_sq));
-        d_equ[3] = w1 * local_density * (1.0 - u_x / c_sq
+        d_equ[3] = (1.0 / 9.0) * local_density * (1.0 - u_x / c_sq
                                          + (u_x * u_x) / (2.0 * c_sq * c_sq)
                                          - u_sq / (2.0 * c_sq));
-        d_equ[4] = w1 * local_density * (1.0 - u_y / c_sq
+        d_equ[4] = (1.0 / 9.0) * local_density * (1.0 - u_y / c_sq
                                          + (u_y * u_y) / (2.0 * c_sq * c_sq)
                                          - u_sq / (2.0 * c_sq));
         /* diagonal speeds: weight w2 */
-        d_equ[5] = w2 * local_density * (1.0 +  (u_x + u_y) / c_sq
+        d_equ[5] = (1.0 / 36.0) * local_density * (1.0 +  (u_x + u_y) / c_sq
                                          + (( u_x + u_y) * ( u_x + u_y)) / (2.0 * c_sq * c_sq)
                                          - u_sq / (2.0 * c_sq));
-        d_equ[6] = w2 * local_density * (1.0 + ( -u_x + u_y) / c_sq
+        d_equ[6] = (1.0 / 36.0) * local_density * (1.0 + ( -u_x + u_y) / c_sq
                                          + ((-u_x + u_y) * (-u_x + u_y)) / (2.0 * c_sq * c_sq)
                                          - u_sq / (2.0 * c_sq));
-        d_equ[7] = w2 * local_density * (1.0 + ( -u_x - u_y) / c_sq
+        d_equ[7] = (1.0 / 36.0) * local_density * (1.0 + ( -u_x - u_y) / c_sq
                                          + (( -u_x - u_y) * ( -u_x - u_y)) / (2.0 * c_sq * c_sq)
                                          - u_sq / (2.0 * c_sq));
-        d_equ[8] = w2 * local_density * (1.0 + (u_x - u_y) / c_sq
+        d_equ[8] = (1.0 / 36.0) * local_density * (1.0 + (u_x - u_y) / c_sq
                                          + ((u_x - u_y) * (u_x - u_y)) / (2.0 * c_sq * c_sq)
                                          - u_sq / (2.0 * c_sq));
 
