@@ -299,13 +299,13 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
+
+      int cellAccess = ii * params.nx + jj;
       /* don't consider occupied cells */
-      if (!obstacles[ ii * params.nx + jj])
+      if (!obstacles[cellAccess])
       {
         /* compute local density total */
         double local_density = 0.0;
-        int cellAccess = ii * params.nx + jj;
-
 
         for (int kk = 0; kk < NSPEEDS; kk++)
         {
@@ -390,12 +390,12 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
+      int cellAccess = ii * params.nx + jj;
       /* ignore occupied cells */
-      if (!obstacles[ii * params.nx + jj])
+      if (!obstacles[cellAccess])
       {
         /* local density total */
         double local_density = 0.0;
-        int cellAccess = ii * params.nx + jj;
 
         for (int kk = 0; kk < NSPEEDS; kk++)
         {
