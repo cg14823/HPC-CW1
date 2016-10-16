@@ -1,16 +1,17 @@
-Flat profile: gcc -std=c99 -Wall -O3 -pg -DDEBUG replace values with precalculated values
+Flat profile:
+ removing the constant values is a failure
 
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  ms/call  ms/call  name    
- 68.19    129.22   129.22    40000     3.23     3.23  collision
- 13.61    155.00    25.79    40001     0.64     0.64  av_velocity
- 12.01    177.76    22.75    40000     0.57     0.57  propagate
-  6.29    189.68    11.92                             main
-  0.00    189.68     0.00        1     0.00     0.64  calc_reynolds
-  0.00    189.68     0.00        1     0.00     0.00  finalise
-  0.00    189.68     0.00        1     0.00     0.00  initialise
-  0.00    189.68     0.00        1     0.00     0.00  write_values
+ 68.15    129.14   129.14    40000     3.23     3.23  collision
+ 13.61    154.92    25.79    40001     0.64     0.64  av_velocity
+ 12.00    177.67    22.74    40000     0.57     0.57  propagate
+  6.33    189.66    11.99                             main
+  0.01    189.67     0.01        1    10.01    10.01  write_values
+  0.00    189.67     0.00        1     0.00     0.64  calc_reynolds
+  0.00    189.67     0.00        1     0.00     0.00  finalise
+  0.00    189.67     0.00        1     0.00     0.00  initialise
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -42,41 +43,41 @@ name       the name of the function.  This is the minor sort
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 2 byte(s) for 0.01% of 189.68 seconds
+granularity: each sample hit covers 2 byte(s) for 0.01% of 189.67 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]    100.0   11.92  177.76                 main [1]
-              129.22    0.00   40000/40000       collision [2]
+[1]    100.0   11.99  177.68                 main [1]
+              129.14    0.00   40000/40000       collision [2]
                25.78    0.00   40000/40001       av_velocity [3]
-               22.75    0.00   40000/40000       propagate [4]
-                0.00    0.00       1/1           calc_reynolds [5]
-                0.00    0.00       1/1           initialise [7]
-                0.00    0.00       1/1           write_values [8]
-                0.00    0.00       1/1           finalise [6]
+               22.74    0.00   40000/40000       propagate [4]
+                0.01    0.00       1/1           write_values [5]
+                0.00    0.00       1/1           calc_reynolds [6]
+                0.00    0.00       1/1           initialise [8]
+                0.00    0.00       1/1           finalise [7]
 -----------------------------------------------
-              129.22    0.00   40000/40000       main [1]
-[2]     68.1  129.22    0.00   40000         collision [2]
+              129.14    0.00   40000/40000       main [1]
+[2]     68.1  129.14    0.00   40000         collision [2]
 -----------------------------------------------
-                0.00    0.00       1/40001       calc_reynolds [5]
+                0.00    0.00       1/40001       calc_reynolds [6]
                25.78    0.00   40000/40001       main [1]
 [3]     13.6   25.79    0.00   40001         av_velocity [3]
 -----------------------------------------------
-               22.75    0.00   40000/40000       main [1]
-[4]     12.0   22.75    0.00   40000         propagate [4]
+               22.74    0.00   40000/40000       main [1]
+[4]     12.0   22.74    0.00   40000         propagate [4]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[5]      0.0    0.01    0.00       1         write_values [5]
 -----------------------------------------------
                 0.00    0.00       1/1           main [1]
-[5]      0.0    0.00    0.00       1         calc_reynolds [5]
+[6]      0.0    0.00    0.00       1         calc_reynolds [6]
                 0.00    0.00       1/40001       av_velocity [3]
 -----------------------------------------------
                 0.00    0.00       1/1           main [1]
-[6]      0.0    0.00    0.00       1         finalise [6]
+[7]      0.0    0.00    0.00       1         finalise [7]
 -----------------------------------------------
                 0.00    0.00       1/1           main [1]
-[7]      0.0    0.00    0.00       1         initialise [7]
------------------------------------------------
-                0.00    0.00       1/1           main [1]
-[8]      0.0    0.00    0.00       1         write_values [8]
+[8]      0.0    0.00    0.00       1         initialise [8]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -164,6 +165,6 @@ index % time    self  children    called     name
 
 Index by function name
 
-   [3] av_velocity             [6] finalise                [4] propagate
-   [5] calc_reynolds           [7] initialise              [8] write_values
+   [3] av_velocity             [7] finalise                [4] propagate
+   [6] calc_reynolds           [8] initialise              [5] write_values
    [2] collision               [1] main
