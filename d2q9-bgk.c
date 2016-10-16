@@ -337,29 +337,29 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                    * (1.0 - u_sq / (2.0 * c_sq));
         /* axis speeds: weight w1 */
         d_equ[1] = w1 * local_density * (1.0 +  u_x / c_sq
-                                         + ( u_x *  u_x) / (2.0 * c_sq * c_sq)
+                                         + ( u_x *  u_x) / (2.0 * w1)
                                          - u_sq / (2.0 * c_sq));
         d_equ[2] = w1 * local_density * (1.0 + u_y / c_sq
-                                         + (u_y * u_y) / (2.0 * c_sq * c_sq)
+                                         + (u_y * u_y) / (2.0 * w1)
                                          - u_sq / (2.0 * c_sq));
         d_equ[3] = w1 * local_density * (1.0 - u_x / c_sq
-                                         + (u_x * u_x) / (2.0 * c_sq * c_sq)
+                                         + (u_x * u_x) / (2.0 * w1)
                                          - u_sq / (2.0 * c_sq));
         d_equ[4] = w1 * local_density * (1.0 - u_y / c_sq
-                                         + (u_y * u_y) / (2.0 * c_sq * c_sq)
+                                         + (u_y * u_y) / (2.0 * w1)
                                          - u_sq / (2.0 * c_sq));
         /* diagonal speeds: weight w2 */
         d_equ[5] = w2 * local_density * (1.0 +  (u_x + u_y) / c_sq
-                                         + (( u_x + u_y) * ( u_x + u_y)) / (2.0 * c_sq * c_sq)
+                                         + (( u_x + u_y) * ( u_x + u_y)) / (2.0 *w1)
                                          - u_sq / (2.0 * c_sq));
         d_equ[6] = w2 * local_density * (1.0 + ( -u_x + u_y) / c_sq
-                                         + ((-u_x + u_y) * (-u_x + u_y)) / (2.0 * c_sq * c_sq)
+                                         + ((-u_x + u_y) * (-u_x + u_y)) / (2.0 * w1)
                                          - u_sq / (2.0 * c_sq));
         d_equ[7] = w2 * local_density * (1.0 + ( -u_x - u_y) / c_sq
-                                         + (( -u_x - u_y) * ( -u_x - u_y)) / (2.0 * c_sq * c_sq)
+                                         + (( -u_x - u_y) * ( -u_x - u_y)) / (2.0 * w1)
                                          - u_sq / (2.0 * c_sq));
         d_equ[8] = w2 * local_density * (1.0 + (u_x - u_y) / c_sq
-                                         + ((u_x - u_y) * (u_x - u_y)) / (2.0 * c_sq * c_sq)
+                                         + ((u_x - u_y) * (u_x - u_y)) / (2.0 * w1)
                                          - u_sq / (2.0 * c_sq));
 
         /* relaxation step */
