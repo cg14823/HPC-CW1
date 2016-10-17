@@ -286,9 +286,9 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
-  const float c_sq = 1.0 / 3.0; /* square of speed of sound */
-  const float w1 = 1.0 / 9.0;  /* weighting factor */
-  const float w2 = 1.0 / 36.0; /* weighting factor */
+  const double c_sq = 1.0 / 3.0; /* square of speed of sound */
+  const double w1 = 1.0 / 9.0;  /* weighting factor */
+  const double w2 = 1.0 / 36.0; /* weighting factor */
 
   /* loop over the cells in the grid
   ** NB the collision step is called after
@@ -311,7 +311,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         }
 
         /* compute x velocity component */
-        float u_x = (tmp_cells[cellAccess].speeds[1]
+        double u_x = (tmp_cells[cellAccess].speeds[1]
                       + tmp_cells[cellAccess].speeds[5]
                       + tmp_cells[cellAccess].speeds[8]
                       - (tmp_cells[cellAccess].speeds[3]
@@ -319,7 +319,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                          + tmp_cells[cellAccess].speeds[7]))
                      / local_density;
         /* compute y velocity component */
-        float u_y = (tmp_cells[cellAccess].speeds[2]
+        double u_y = (tmp_cells[cellAccess].speeds[2]
                       + tmp_cells[cellAccess].speeds[5]
                       + tmp_cells[cellAccess].speeds[6]
                       - (tmp_cells[cellAccess].speeds[4]
@@ -328,16 +328,16 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                      / local_density;
 
         /* velocity squared */
-        float u_sq = u_x * u_x + u_y * u_y;
+        double u_sq = u_x * u_x + u_y * u_y;
         /* equilibrium densities */
-        float d_equ[NSPEEDS];
+        double d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
         d_equ[0] = c_sq * local_density * (1.0 - u_sq);
         /* axis speeds: weight w1 */
-        d_equ[1] = w1 * local_density * (1.0 + 3 * (u_x + u_x *u_x) - 1.5*u_y*u_y);
+        d_equ[1] = w1 * local_density * (1.0 + 3 * (u_x + u_x * u_x) - 1.5 * u_y * u_y);
         d_equ[2] = w1 * local_density * (1.0 + 3 * (u_y + u_y * u_y) - 1.5 * u_x * u_x);
         d_equ[3] = w1 * local_density * (1.0 + 3 * (-u_x + u_x * u_x) - 1.5 * u_y * u_y);
-        d_equ[4] = w1 * local_density * (1.0 + 3 * (-u_y + u_y * u_y) -1.5 * u_x *u_x);
+        d_equ[4] = w1 * local_density * (1.0 + 3 * (-u_y + u_y * u_y) - 1.5 * u_x *u_x);
         /* diagonal speeds: weight w2 */
         d_equ[5] = w2 * local_density * (1.0 + 3 * (u_sq + u_x + u_y) + 9 * u_x * u_y);
         d_equ[6] = w2 * local_density * (1.0 + 3 * (u_sq - u_x + u_y) - 9 * u_x * u_y);
