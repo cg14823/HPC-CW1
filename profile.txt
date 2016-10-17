@@ -1,5 +1,6 @@
 Flat profile:
-
+-std=c99 -Wall -O3 -pg -DDEBUG
+128*256 cahnging doubles for floats
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  ms/call  ms/call  name    
