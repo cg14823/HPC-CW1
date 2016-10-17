@@ -286,9 +286,10 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
-  const double c_sq = 1.0 / 3.0; /* square of speed of sound */
-  const double w1 = 1.0 / 9.0;  /* weighting factor */
-  const double w2 = 1.0 / 36.0; /* weighting factor */
+  const float c_sq = 1.0 / 3.0; /* square of speed of sound */
+  const float w0 = 4.0 / 9.0;  /* weighting factor */
+  const float w1 = 1.0 / 9.0;  /* weighting factor */
+  const float w2 = 1.0 / 36.0; /* weighting factor */
 
   /* loop over the cells in the grid
   ** NB the collision step is called after
@@ -302,7 +303,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       if (!obstacles[ii * params.nx + jj])
       {
         /* compute local density total */
-        double local_density = 0.0;
+        float local_density = 0.0;
         int cellAccess = ii * params.nx + jj;
 
         for (int kk = 0; kk < NSPEEDS; kk++)
@@ -311,7 +312,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         }
 
         /* compute x velocity component */
-        double u_x = (tmp_cells[cellAccess].speeds[1]
+        float u_x = (tmp_cells[cellAccess].speeds[1]
                       + tmp_cells[cellAccess].speeds[5]
                       + tmp_cells[cellAccess].speeds[8]
                       - (tmp_cells[cellAccess].speeds[3]
@@ -319,7 +320,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                          + tmp_cells[cellAccess].speeds[7]))
                      / local_density;
         /* compute y velocity component */
-        double u_y = (tmp_cells[cellAccess].speeds[2]
+        float u_y = (tmp_cells[cellAccess].speeds[2]
                       + tmp_cells[cellAccess].speeds[5]
                       + tmp_cells[cellAccess].speeds[6]
                       - (tmp_cells[cellAccess].speeds[4]
@@ -328,11 +329,11 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                      / local_density;
 
         /* velocity squared */
-        double u_sq = u_x * u_x + u_y * u_y;
+        float u_sq = u_x * u_x + u_y * u_y;
         /* equilibrium densities */
-        double d_equ[NSPEEDS];
+        float d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
-        d_equ[0] = c_sq * local_density * (1.0 - u_sq);
+        d_equ[0] = w0 * local_density * (1.0 - 1.5 * u_sq);
         /* axis speeds: weight w1 */
         d_equ[1] = w1 * local_density * (1.0 + 3 * (u_x + u_x * u_x) - 1.5 * u_y * u_y);
         d_equ[2] = w1 * local_density * (1.0 + 3 * (u_y + u_y * u_y) - 1.5 * u_x * u_x);
