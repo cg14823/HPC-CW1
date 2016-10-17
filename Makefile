@@ -23,3 +23,4 @@ check:
 
 clean:
 	rm -f $(EXE)
+	rm profile.txt
