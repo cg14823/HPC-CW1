@@ -98,7 +98,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
 ** timestep calls, in order, the functions:
 ** accelerate_flow(), propagate(), rebound() & collision()
 */
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, Array noObs);
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, Array* noObs);
 int accelerate_flow(const t_param params, t_speed* cells, int* obstacles);
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells);
 int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
@@ -156,20 +156,20 @@ int main(int argc, char* argv[])
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
   Array noObstacleIndex;
-  noObstacleIndex->used = 0;
-  noObstacleIndex->size = (unsigned short)((params.nx * params.ny)/3);
-  noObstacleIndex->array = malloc(sizeof(int) * noObstacleIndex->size);
+  noObstacleIndex.used = 0;
+  noObstacleIndex.size = (unsigned short)((params.nx * params.ny)/3);
+  noObstacleIndex.array = malloc(sizeof(int) * noObstacleIndex->size);
 
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
       if (!obstacles[ii * params.nx + jj]){
-        if (noObstacleIndex->size >= noObstacleIndex->used){
-          noObstacleIndex->size *= 2;
-          noObstacleIndex->array = realloc(noObstacleIndex->array, sizeof(int) * noObstacleIndex->size);
+        if (noObstacleIndex.size >= noObstacleIndex->used){
+          noObstacleIndex.size *= 2;
+          noObstacleIndex.array = realloc(noObstacleIndex->array, sizeof(int) * noObstacleIndex->size);
         }
-        noObstacleIndex->data[noObstacleIndex->used++] = ii * params.nx + jj;
+        noObstacleIndex.data[noObstacleIndex.used++] = ii * params.nx + jj;
       }
 
     }
@@ -319,12 +319,12 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array no
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-  for (int jj = 0; jj < noObs->used; jj++)
+  for (int jj = 0; jj < noObs.used; jj++)
   {
 
     /* compute local density total */
     float local_density = 0.0;
-    int i = noObs->array[jj];
+    int i = noObs.array[jj];
     for (int kk = 0; kk < NSPEEDS; kk++)
     {
       local_density += tmp_cells[i].speeds[kk];
