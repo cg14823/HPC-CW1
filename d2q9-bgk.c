@@ -102,7 +102,7 @@ int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obst
 int accelerate_flow(const t_param params, t_speed* cells, int* obstacles);
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells);
 int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
-int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array noObs);
+int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array* noObs);
 int write_values(const t_param params, t_speed* cells, int* obstacles, double* av_vels);
 
 /* finalise, including freeing up allocated memory */
@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
   Array noObstacleIndex;
   noObstacleIndex.used = 0;
   noObstacleIndex.size = (unsigned short)((params.nx * params.ny)/3);
-  noObstacleIndex.array = malloc(sizeof(int) * noObstacleIndex->size);
+  noObstacleIndex.array = malloc(sizeof(int) * noObstacleIndex.size);
 
   for (int ii = 0; ii < params.ny; ii++)
   {
@@ -167,9 +167,9 @@ int main(int argc, char* argv[])
       if (!obstacles[ii * params.nx + jj]){
         if (noObstacleIndex.size >= noObstacleIndex->used){
           noObstacleIndex.size *= 2;
-          noObstacleIndex.array = realloc(noObstacleIndex->array, sizeof(int) * noObstacleIndex->size);
+          noObstacleIndex.array = realloc(noObstacleIndex.array, sizeof(int) * noObstacleIndex.size);
         }
-        noObstacleIndex.data[noObstacleIndex.used++] = ii * params.nx + jj;
+        noObstacleIndex.array[noObstacleIndex.used++] = ii * params.nx + jj;
       }
 
     }
