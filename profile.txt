@@ -1,16 +1,6 @@
 Flat profile:
--std=c99 -Wall -O3 -pg -DDEBUG  changed equations 128*256 run
+run for 256*256 after simplifying equations
 Each sample counts as 0.01 seconds.
-  %   cumulative   self              self     total
- time   seconds   seconds    calls  ms/call  ms/call  name
- 58.13     83.64    83.64    40000     2.09     2.09  collision
- 17.65    109.05    25.40    40001     0.64     0.64  av_velocity
- 15.98    132.04    22.99    40000     0.57     0.57  propagate
-  8.22    143.86    11.82                             main
-  0.00    143.86     0.00        1     0.00     0.00  finalise
-  0.00    143.86     0.00        1     0.00     0.00  initialise
-  0.00    143.86     0.00        1     0.00     0.00  write_values
-=======
   %   cumulative   self              self     total
  time   seconds   seconds    calls  ms/call  ms/call  name
  58.09    334.96   334.96    80000     4.19     4.19  collision
@@ -20,7 +10,6 @@ Each sample counts as 0.01 seconds.
   0.00    576.32     0.00        1     0.00     0.00  finalise
   0.00    576.32     0.00        1     0.00     0.00  initialise
   0.00    576.32     0.00        1     0.00     0.00  write_values
-
 
  %         the percentage of the total running time of the
 time       program used by this function.
