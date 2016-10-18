@@ -181,7 +181,7 @@ int main(int argc, char* argv[])
 
   for (int tt = 0; tt < params.maxIters; tt++)
   {
-    timestep(params, cells, tmp_cells, obstacles,&noObstacleIndex);
+    timestep(params, cells, tmp_cells, obstacles,noObstacleIndex);
     av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
@@ -319,12 +319,12 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array* n
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-  for (int jj = 0; jj < noObs->used; jj++)
+  for (int jj = 0; jj < noObs.used; jj++)
   {
 
     /* compute local density total */
     float local_density = 0.0;
-    int i = noObs->array[jj];
+    int i = noObs.array[jj];
     for (int kk = 0; kk < NSPEEDS; kk++)
     {
       local_density += tmp_cells[i].speeds[kk];
