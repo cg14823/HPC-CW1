@@ -165,7 +165,7 @@ int main(int argc, char* argv[])
     for (int jj = 0; jj < params.nx; jj++)
     {
       if (!obstacles[ii * params.nx + jj]){
-        if (noObstacleIndex.size >= noObstacleIndex->used){
+        if (noObstacleIndex.size >= noObstacleIndex.used){
           noObstacleIndex.size *= 2;
           noObstacleIndex.array = realloc(noObstacleIndex.array, sizeof(int) * noObstacleIndex.size);
         }
@@ -210,7 +210,7 @@ int main(int argc, char* argv[])
   return EXIT_SUCCESS;
 }
 
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, Array noObs)
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, Array* noObs)
 {
   accelerate_flow(params, cells, obstacles);
   propagate(params, cells, tmp_cells);
@@ -309,7 +309,7 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
   return EXIT_SUCCESS;
 }
 
-int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array noObs)
+int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array* noObs)
 {
   const float w0 = 4.0 / 9.0;  /* weighting factor */
   const float w1 = 1.0 / 9.0;  /* weighting factor */
