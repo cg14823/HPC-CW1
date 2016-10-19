@@ -312,8 +312,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                               +tmp_cells[cellAccess].speeds[5]
                               +tmp_cells[cellAccess].speeds[6]
                               +tmp_cells[cellAccess].speeds[7]
-                              +tmp_cells[cellAccess].speeds[8]
-                              +tmp_cells[cellAccess].speeds[9];
+                              +tmp_cells[cellAccess].speeds[8];
 
 
         /* compute x velocity component */
