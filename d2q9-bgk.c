@@ -160,6 +160,8 @@ int main(int argc, char* argv[])
   noObstacleIndex.size = (unsigned short)((params.nx * params.ny)/3);
   noObstacleIndex.array = malloc(sizeof(int) * noObstacleIndex.size);
 
+  printf("1");
+
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
@@ -174,6 +176,7 @@ int main(int argc, char* argv[])
 
     }
   }
+  printf("2");
 
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
@@ -181,7 +184,7 @@ int main(int argc, char* argv[])
 
   for (int tt = 0; tt < params.maxIters; tt++)
   {
-    timestep(params, cells, tmp_cells, obstacles,noObstacleIndex);
+    timestep(params, cells, tmp_cells, obstacles,&noObstacleIndex);
     av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
@@ -311,6 +314,7 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array* noObs)
 {
+  printf("3");
   const float w0 = 4.0 / 9.0;  /* weighting factor */
   const float w1 = 1.0 / 9.0;  /* weighting factor */
   const float w2 = 1.0 / 36.0; /* weighting factor */
@@ -319,12 +323,12 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array* n
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-  for (int jj = 0; jj < noObs.used; jj++)
+  for (int jj = 0; jj < noObs->used; jj++)
   {
 
     /* compute local density total */
     float local_density = 0.0;
-    int i = noObs.array[jj];
+    int i = noObs->array[jj];
     for (int kk = 0; kk < NSPEEDS; kk++)
     {
       local_density += tmp_cells[i].speeds[kk];
