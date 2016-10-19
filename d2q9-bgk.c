@@ -299,11 +299,11 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* don't consider occupied cells */
-      if (!obstacles[ii * params.nx + jj])
+      int cellAccess = ii * params.nx + jj;
+      if (!obstacles[cellAccess])
       {
         /* compute local density total */
         float local_density = 0.0;
-        int cellAccess = ii * params.nx + jj;
 
         for (int kk = 0; kk < NSPEEDS; kk++)
         {
