@@ -149,8 +149,7 @@ int main(int argc, char* argv[])
 
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
-
-  int noObstacleIndex[params.ny *params.nx];
+  int noObstacleIndex[(params.ny *params.nx)];
   int size = 0;
   for (int ii = 0; ii < params.ny; ii++)
   {
@@ -205,7 +204,7 @@ int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obst
   accelerate_flow(params, cells, obstacles);
   propagate(params, cells, tmp_cells);
   rebound(params, cells, tmp_cells, obstacles);
-  collision(params, cells, tmp_cells,noObs);
+  collision(params, cells, tmp_cells,noObs,size);
   return EXIT_SUCCESS;
 }
 
@@ -315,7 +314,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* noO
 
     /* compute local density total */
     float local_density = 0.0;
-    int i = noObs->array[jj];
+    int i = noObs[jj];
     for (int kk = 0; kk < NSPEEDS; kk++)
     {
       local_density += tmp_cells[i].speeds[kk];
