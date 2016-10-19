@@ -303,12 +303,18 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       if (!obstacles[cellAccess])
       {
         /* compute local density total */
-        float local_density = 0.0;
 
-        for (int kk = 0; kk < NSPEEDS; kk++)
-        {
-          local_density += tmp_cells[cellAccess].speeds[kk];
-        }
+        float local_density = tmp_cells[cellAccess].speeds[0]
+                              +tmp_cells[cellAccess].speeds[1]
+                              +tmp_cells[cellAccess].speeds[2]
+                              +tmp_cells[cellAccess].speeds[3]
+                              +tmp_cells[cellAccess].speeds[4]
+                              +tmp_cells[cellAccess].speeds[5]
+                              +tmp_cells[cellAccess].speeds[6]
+                              +tmp_cells[cellAccess].speeds[7]
+                              +tmp_cells[cellAccess].speeds[8]
+                              +tmp_cells[cellAccess].speeds[9];
+
 
         /* compute x velocity component */
         float u_x = (tmp_cells[cellAccess].speeds[1]
