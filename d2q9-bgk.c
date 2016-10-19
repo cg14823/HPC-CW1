@@ -162,7 +162,6 @@ int main(int argc, char* argv[])
     }
   }
   size++;
-  printf("2");
 
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
@@ -300,7 +299,6 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int noObs[], int size)
 {
-  printf("3");
   const float w0 = 4.0 / 9.0;  /* weighting factor */
   const float w1 = 1.0 / 9.0;  /* weighting factor */
   const float w2 = 1.0 / 36.0; /* weighting factor */
