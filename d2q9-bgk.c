@@ -92,11 +92,11 @@ int initialise(const char* paramfile, const char* obstaclefile,
 ** timestep calls, in order, the functions:
 ** accelerate_flow(), propagate(), rebound() & collision()
 */
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, int* noObs, int size);
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, int noObs[], int size);
 int accelerate_flow(const t_param params, t_speed* cells, int* obstacles);
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells);
 int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
-int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* noObs, int size);
+int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int noObs[], int size);
 int write_values(const t_param params, t_speed* cells, int* obstacles, double* av_vels);
 
 /* finalise, including freeing up allocated memory */
@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
 
   for (int tt = 0; tt < params.maxIters; tt++)
   {
-    timestep(params, cells, tmp_cells, obstacles,&noObstacleIndex, size);
+    timestep(params, cells, tmp_cells, obstacles,noObstacleIndex, size);
     av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
@@ -199,7 +199,7 @@ int main(int argc, char* argv[])
   return EXIT_SUCCESS;
 }
 
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, int* noObs, int size)
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, int noObs[], int size)
 {
   accelerate_flow(params, cells, obstacles);
   propagate(params, cells, tmp_cells);
@@ -298,7 +298,7 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
   return EXIT_SUCCESS;
 }
 
-int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* noObs, int size)
+int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int noObs[], int size)
 {
   printf("3");
   const float w0 = 4.0 / 9.0;  /* weighting factor */
