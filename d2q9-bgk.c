@@ -150,6 +150,7 @@ int main(int argc, char* argv[])
   /* initialise our data structures and load values from file */
   int nblocked = initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
   int nonblocked = (params.ny*params.nx -nblocked)+1;
+  int s
   printf("non blocked %d\n",nonblocked);
   printf("blocked %d\n",nblocked);
   int indices[nonblocked];
@@ -158,17 +159,14 @@ int main(int argc, char* argv[])
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
-      printf("%d\n",i);
-      if (i >= nonblocked){
-        printf("error");
-        exit(1);
-      }
       if (!obstacles[ii * params.nx + jj]){
         indices[i] = ii * params.nx + jj;
         i++;
       }
     }
   }
+  printf("size of array %d\n",i);
+  exit(1);
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
