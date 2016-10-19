@@ -81,9 +81,9 @@ typedef struct
 typedef struct
 {
   int *array;
-  unsigned short size;
-  unsigned short used;
-} Array;
+  int size;
+  int used;
+} array;
 /*
 ** function prototypes
 */
@@ -98,11 +98,11 @@ int initialise(const char* paramfile, const char* obstaclefile,
 ** timestep calls, in order, the functions:
 ** accelerate_flow(), propagate(), rebound() & collision()
 */
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, Array* noObs);
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, array* noObs);
 int accelerate_flow(const t_param params, t_speed* cells, int* obstacles);
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells);
 int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
-int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array* noObs);
+int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, array* noObs);
 int write_values(const t_param params, t_speed* cells, int* obstacles, double* av_vels);
 
 /* finalise, including freeing up allocated memory */
@@ -155,7 +155,9 @@ int main(int argc, char* argv[])
 
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
-  Array noObstacleIndex;
+  array noObstacleIndex;
+  printf("0");
+
   noObstacleIndex.used = 0;
   noObstacleIndex.size = (unsigned short)((params.nx * params.ny)/3);
   noObstacleIndex.array = malloc(sizeof(int) * noObstacleIndex.size);
@@ -213,7 +215,7 @@ int main(int argc, char* argv[])
   return EXIT_SUCCESS;
 }
 
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, Array* noObs)
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, array* noObs)
 {
   accelerate_flow(params, cells, obstacles);
   propagate(params, cells, tmp_cells);
@@ -312,7 +314,7 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
   return EXIT_SUCCESS;
 }
 
-int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, Array* noObs)
+int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, array* noObs)
 {
   printf("3");
   const float w0 = 4.0 / 9.0;  /* weighting factor */
