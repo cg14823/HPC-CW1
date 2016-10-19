@@ -385,15 +385,15 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
         /* local density total */
         int cellAccess = ii * params.nx + jj;
 
-        float local_density = tmp_cells[cellAccess].speeds[0]
-                              +tmp_cells[cellAccess].speeds[1]
-                              +tmp_cells[cellAccess].speeds[2]
-                              +tmp_cells[cellAccess].speeds[3]
-                              +tmp_cells[cellAccess].speeds[4]
-                              +tmp_cells[cellAccess].speeds[5]
-                              +tmp_cells[cellAccess].speeds[6]
-                              +tmp_cells[cellAccess].speeds[7]
-                              +tmp_cells[cellAccess].speeds[8];
+        float local_density = cells[cellAccess].speeds[0]
+                              +cells[cellAccess].speeds[1]
+                              +cells[cellAccess].speeds[2]
+                              +cells[cellAccess].speeds[3]
+                              +cells[cellAccess].speeds[4]
+                              +cells[cellAccess].speeds[5]
+                              +cells[cellAccess].speeds[6]
+                              +cells[cellAccess].speeds[7]
+                              +cells[cellAccess].speeds[8];
 
 
         /* x-component of velocity */
