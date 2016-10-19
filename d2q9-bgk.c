@@ -151,6 +151,7 @@ int main(int argc, char* argv[])
   int nblocked = initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
   int nonblocked = params.ny*params.nx -nblocked;
   printf("non blocked %d\n",nonblocked);
+  printf("blocked %d\n",nblocked);
   int indices[nonblocked];
   int i =0;
   for (int ii = 0; ii < params.ny; ii++)
