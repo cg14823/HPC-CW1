@@ -156,13 +156,13 @@ int main(int argc, char* argv[])
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
   array noObstacleIndex;
-  printf("0");
+  printf("Pre");
 
   noObstacleIndex.used = 0;
   noObstacleIndex.size = (unsigned short)((params.nx * params.ny)/3);
   noObstacleIndex.array = malloc(sizeof(int) * noObstacleIndex.size);
 
-  printf("1");
+  printf("Post");
 
   for (int ii = 0; ii < params.ny; ii++)
   {
