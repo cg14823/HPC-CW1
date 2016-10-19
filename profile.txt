@@ -1,8 +1,8 @@
 Flat profile:
-
+run for 256*256 after simplifying equations
 Each sample counts as 0.01 seconds.
-  %   cumulative   self              self     total           
- time   seconds   seconds    calls  ms/call  ms/call  name    
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
  58.09    334.96   334.96    80000     4.19     4.19  collision
  17.82    437.69   102.73    80001     1.28     1.28  av_velocity
  15.93    529.54    91.85    80000     1.15     1.15  propagate
@@ -23,13 +23,13 @@ seconds    function alone.  This is the major sort for this
 
 calls      the number of times this function was invoked, if
            this function is profiled, else blank.
- 
+
  self      the average number of milliseconds spent in this
 ms/call    function per call, if this function is profiled,
 	   else blank.
 
  total     the average number of milliseconds spent in this
-ms/call    function and its descendents per call, if this 
+ms/call    function and its descendents per call, if this
 	   function is profiled, else blank.
 
 name       the name of the function.  This is the minor sort
