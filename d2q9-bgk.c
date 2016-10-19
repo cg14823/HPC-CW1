@@ -150,7 +150,6 @@ int main(int argc, char* argv[])
   /* initialise our data structures and load values from file */
   int nblocked = initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
   int nonblocked = (params.ny*params.nx -nblocked)+1;
-  int s
   printf("non blocked %d\n",nonblocked);
   printf("blocked %d\n",nblocked);
   int indices[nonblocked];
