@@ -149,30 +149,30 @@ int main(int argc, char* argv[])
 
   /* initialise our data structures and load values from file */
   int nblocked = initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
-  int nonblocked = (params.ny*params.nx -nblocked)+1;
-  printf("non blocked %d\n",nonblocked);
-  printf("blocked %d\n",nblocked);
+  int nonblocked = (params.ny*params.nx -nblocked)+2;
   int indices[nonblocked];
   int i =0;
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
+      if (i > nonblocked){
+        printf("error");
+        exit(1);
+      }
       if (!obstacles[ii * params.nx + jj]){
         indices[i] = ii * params.nx + jj;
         i++;
       }
     }
   }
-  printf("size of array %d\n",i);
-  exit(1);
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
 
   for (int tt = 0; tt < params.maxIters; tt++)
   {
-    timestep(params, cells, tmp_cells, obstacles, indices, i+1);
+    timestep(params, cells, tmp_cells, obstacles, indices, i);
     av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
