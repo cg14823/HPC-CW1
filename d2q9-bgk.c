@@ -150,12 +150,17 @@ int main(int argc, char* argv[])
   /* initialise our data structures and load values from file */
   int nblocked = initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
   int nonblocked = params.ny*params.nx -nblocked;
+  printf("non blocked %d\n",nonblocked);
   int indices[nonblocked];
   int i =0;
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
+      if (i <= nonblocked){
+        printf("error");
+        exit(1);
+      }
       if (!obstacles[ii * params.nx + jj]){
         indices[i] = ii * params.nx + jj;
         i++;
