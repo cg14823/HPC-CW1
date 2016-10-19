@@ -78,12 +78,6 @@ typedef struct
   double speeds[NSPEEDS];
 } t_speed;
 
-typedef struct
-{
-  int *array;
-  int size;
-  int used;
-} array;
 /*
 ** function prototypes
 */
@@ -98,11 +92,11 @@ int initialise(const char* paramfile, const char* obstaclefile,
 ** timestep calls, in order, the functions:
 ** accelerate_flow(), propagate(), rebound() & collision()
 */
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, array* noObs);
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, int* noObs, int size);
 int accelerate_flow(const t_param params, t_speed* cells, int* obstacles);
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells);
 int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
-int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, array* noObs);
+int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* noObs, int size);
 int write_values(const t_param params, t_speed* cells, int* obstacles, double* av_vels);
 
 /* finalise, including freeing up allocated memory */
@@ -155,29 +149,20 @@ int main(int argc, char* argv[])
 
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
-  array noObstacleIndex;
-  printf("Pre");
 
-  noObstacleIndex.used = 0;
-  noObstacleIndex.size = (unsigned short)((params.nx * params.ny)/3);
-  noObstacleIndex.array = malloc(sizeof(int) * noObstacleIndex.size);
-
-  printf("Post");
-
+  int noObstacleIndex[params.ny *params.nx];
+  int size = 0;
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
       if (!obstacles[ii * params.nx + jj]){
-        if (noObstacleIndex.size >= noObstacleIndex.used){
-          noObstacleIndex.size *= 2;
-          noObstacleIndex.array = realloc(noObstacleIndex.array, sizeof(int) * noObstacleIndex.size);
-        }
-        noObstacleIndex.array[noObstacleIndex.used++] = ii * params.nx + jj;
+        noObstacleIndex[size] = ii * params.nx + jj;
+        size++;
       }
-
     }
   }
+  size++;
   printf("2");
 
   /* iterate for maxIters timesteps */
@@ -186,7 +171,7 @@ int main(int argc, char* argv[])
 
   for (int tt = 0; tt < params.maxIters; tt++)
   {
-    timestep(params, cells, tmp_cells, obstacles,&noObstacleIndex);
+    timestep(params, cells, tmp_cells, obstacles,&noObstacleIndex, size);
     av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
@@ -215,7 +200,7 @@ int main(int argc, char* argv[])
   return EXIT_SUCCESS;
 }
 
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, array* noObs)
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, int* noObs, int size)
 {
   accelerate_flow(params, cells, obstacles);
   propagate(params, cells, tmp_cells);
@@ -314,7 +299,7 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
   return EXIT_SUCCESS;
 }
 
-int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, array* noObs)
+int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* noObs, int size)
 {
   printf("3");
   const float w0 = 4.0 / 9.0;  /* weighting factor */
@@ -325,7 +310,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, array* n
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-  for (int jj = 0; jj < noObs->used; jj++)
+  for (int jj = 0; jj < size; jj++)
   {
 
     /* compute local density total */
