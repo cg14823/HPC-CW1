@@ -197,7 +197,7 @@ int main(int argc, char* argv[])
   return EXIT_SUCCESS;
 }
 
-int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, int indices[], size)
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles, int indices[],int size)
 {
   accelerate_flow(params, cells, obstacles);
   propagate(params, cells, tmp_cells);
