@@ -312,8 +312,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                               +tmp_cells[cellAccess].speeds[5]
                               +tmp_cells[cellAccess].speeds[6]
                               +tmp_cells[cellAccess].speeds[7]
-                              +tmp_cells[cellAccess].speeds[8];
-
+                              +tmp_cells[cellAccess].speeds[8]
 
         /* compute x velocity component */
         float u_x = (tmp_cells[cellAccess].speeds[1]
@@ -350,15 +349,40 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         d_equ[8] = w2 * local_density * (1.0 + 3 * (u_sq + u_x - u_y) - 9 * u_x * u_y);
 
         /* relaxation step */
-        for (int kk = 0; kk < NSPEEDS; kk++)
-        {
-          cells[cellAccess].speeds[kk] = tmp_cells[cellAccess].speeds[kk]
-                                                  + params.omega
-                                                  * (d_equ[kk] - tmp_cells[cellAccess].speeds[kk]);
-        }
+
+        cells[cellAccess].speeds[0] = tmp_cells[cellAccess].speeds[0]
+                                                + params.omega
+                                                * (d_equ[0] - tmp_cells[cellAccess].speeds[0]);
+        cells[cellAccess].speeds[1] = tmp_cells[cellAccess].speeds[1]
+                                                + params.omega
+                                                * (d_equ[1] - tmp_cells[cellAccess].speeds[1]);
+        cells[cellAccess].speeds[2] = tmp_cells[cellAccess].speeds[2]
+                                                + params.omega
+                                                * (d_equ[2] - tmp_cells[cellAccess].speeds[2]);
+        cells[cellAccess].speeds[3] = tmp_cells[cellAccess].speeds[3]
+                                                + params.omega
+                                                * (d_equ[3] - tmp_cells[cellAccess].speeds[3]);
+        cells[cellAccess].speeds[4] = tmp_cells[cellAccess].speeds[4]
+                                                + params.omega
+                                                * (d_equ[4] - tmp_cells[cellAccess].speeds[4]);
+        cells[cellAccess].speeds[5] = tmp_cells[cellAccess].speeds[5]
+                                                + params.omega
+                                                * (d_equ[5] - tmp_cells[cellAccess].speeds[5]);
+
+        cells[cellAccess].speeds[6] = tmp_cells[cellAccess].speeds[6]
+                                                + params.omega
+                                                * (d_equ[6] - tmp_cells[cellAccess].speeds[6]);
+        cells[cellAccess].speeds[7] = tmp_cells[cellAccess].speeds[7]
+                                                + params.omega
+                                                * (d_equ[7] - tmp_cells[cellAccess].speeds[7]);
+        cells[cellAccess].speeds[8] = tmp_cells[cellAccess].speeds[8]
+                                                + params.omega
+                                                * (d_equ[8] - tmp_cells[cellAccess].speeds[8]);
       }
     }
   }
+
+
 
   return EXIT_SUCCESS;
 }

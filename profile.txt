@@ -1,8 +1,8 @@
 Flat profile:
-
+unfolding the loop is a success icc 128*256
 Each sample counts as 0.01 seconds.
-  %   cumulative   self              self     total           
- time   seconds   seconds    calls  ms/call  ms/call  name    
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
  56.11     60.09    60.09    40000     1.50     1.50  collision
  23.99     85.78    25.69    40001     0.64     0.64  av_velocity
  18.76    105.88    20.10    40000     0.50     0.50  propagate
@@ -26,13 +26,13 @@ seconds    function alone.  This is the major sort for this
 
 calls      the number of times this function was invoked, if
            this function is profiled, else blank.
- 
+
  self      the average number of milliseconds spent in this
 ms/call    function per call, if this function is profiled,
 	   else blank.
 
  total     the average number of milliseconds spent in this
-ms/call    function and its descendents per call, if this 
+ms/call    function and its descendents per call, if this
 	   function is profiled, else blank.
 
 name       the name of the function.  This is the minor sort
