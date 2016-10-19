@@ -157,7 +157,7 @@ int main(int argc, char* argv[])
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
-      printf("%d",i)
+      printf("%d",i);
       if (i >= nonblocked){
         printf("error");
         exit(1);
