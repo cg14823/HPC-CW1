@@ -374,18 +374,16 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 
   /* initialise */
   tot_u = 0.0;
-
+  int inducVar = 0;
   /* loop over all non-blocked cells */
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
-
+      int cellAccess = inducVar + jj;
       /* ignore occupied cells */
-      if (!obstacles[ii * params.nx + jj])
+      if (!obstacles[cellAccess])
       {
-        /* local density total */
-        int cellAccess = ii * params.nx + jj;
 
         float local_density = cells[cellAccess].speeds[0]
                               +cells[cellAccess].speeds[1]
@@ -420,6 +418,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
         ++tot_cells;
       }
     }
+    inducVar += params.nx;
   }
 
   return tot_u / (double)tot_cells;
