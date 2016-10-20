@@ -286,6 +286,7 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
+
   const float w0 = 4.0 / 9.0;  /* weighting factor */
   const float w1 = 1.0 / 9.0;  /* weighting factor */
   const float w2 = 1.0 / 36.0; /* weighting factor */
@@ -294,9 +295,8 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-
   int inducVar = 0;
-  for (int ii = 0; ii < params.ny; ii++)
+  #pragma omp for (int ii = 0; ii < params.ny; ii++) shared(w0,w1,w2) firstprivate(inducVar)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
