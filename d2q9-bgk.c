@@ -363,9 +363,6 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
     }
       inducVar += params.nx;
   }
-
-
-
   return EXIT_SUCCESS;
 }
 
