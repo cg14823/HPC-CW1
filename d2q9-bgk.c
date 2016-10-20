@@ -294,12 +294,13 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
+  int inducVar = 0;
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* don't consider occupied cells */
-      int cellAccess = ii * params.nx + jj;
+      int cellAccess = inducVar + jj;
       if (!obstacles[cellAccess])
       {
         /* compute local density total */
@@ -358,6 +359,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
           }
       }
     }
+      int inducVar += params.nx;
   }
 
 
