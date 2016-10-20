@@ -2,7 +2,7 @@
 
 EXE=d2q9-bgk
 
-CC=icc
+CC=tau_cc.sh
 CFLAGS= -std= c99 -O3 -pg
 LIBS = -lm
 

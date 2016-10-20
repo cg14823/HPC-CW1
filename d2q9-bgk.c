@@ -294,15 +294,17 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
+
   int inducVar = 0;
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* don't consider occupied cells */
-      int cellAccess = inducVar + jj;
-      if (!obstacles[cellAccess])
+
+      if (!obstacles[inducVar +jj])
       {
+        int cellAccess = inducVar + jj;
         /* compute local density total */
 
         float local_density = tmp_cells[cellAccess].speeds[0]
@@ -380,10 +382,11 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
-      int cellAccess = inducVar + jj;
+
       /* ignore occupied cells */
-      if (!obstacles[cellAccess])
+      if (!obstacles[inducVar +jj])
       {
+        int cellAccess = inducVar + jj;
 
         float local_density = cells[cellAccess].speeds[0]
                               +cells[cellAccess].speeds[1]

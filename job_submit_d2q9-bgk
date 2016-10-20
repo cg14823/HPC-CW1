@@ -37,4 +37,4 @@ export OMP_NUM_THREADS=$numnodes
 
 #! Run the executable
 $application $options
-gprof $application gmon.out > profile.txt
+pprof $application gmon.out > profile.txt
