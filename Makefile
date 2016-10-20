@@ -3,7 +3,7 @@
 EXE=d2q9-bgk
 
 CC=tau_cc.sh
-CFLAGS= -std= c99 -O3
+CFLAGS= -std=c99 -O3
 LIBS = -lm
 
 FINAL_STATE_FILE=./final_state.dat
