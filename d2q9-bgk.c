@@ -296,7 +296,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   ** are in the scratch-space grid */
 
 
-#pragma omp parallel shared(w0,w1,w2) private(inducVar)
+#pragma omp parallel shared(w0,w1,w2)
 {
   int inducVar = 0;
 #pragma omp for
