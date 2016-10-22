@@ -292,15 +292,15 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   ** are in the scratch-space grid */
 
 
-#pragma omp parallel
-{
   const double w0 = 4.0 / 9.0;  /* weighting factor */
   const double w1 = 1.0 / 9.0;  /* weighting factor */
   const double w2 = 1.0 / 36.0; /* weighting factor */
   int inducVar = 0;
-#pragma omp for
+
+
   for(int ii = 0; ii < params.ny; ii++)
   {
+#pragma omp parallel for firstprivate (inducVar)
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* don't consider occupied cells */
@@ -366,7 +366,6 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
     }
       inducVar += params.nx;
   }
-}
   return EXIT_SUCCESS;
 }
 
