@@ -286,9 +286,9 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
 
-  const float w0 = 4.0 / 9.0;  /* weighting factor */
-  const float w1 = 1.0 / 9.0;  /* weighting factor */
-  const float w2 = 1.0 / 36.0; /* weighting factor */
+  const double w0 = 4.0 / 9.0;  /* weighting factor */
+  const double w1 = 1.0 / 9.0;  /* weighting factor */
+  const double w2 = 1.0 / 36.0; /* weighting factor */
 
   /* loop over the cells in the grid
   ** NB the collision step is called after
@@ -311,7 +311,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         int cellAccess = inducVar + jj;
         /* compute local density total */
 
-        float local_density = tmp_cells[cellAccess].speeds[0]
+        double local_density = tmp_cells[cellAccess].speeds[0]
                               +tmp_cells[cellAccess].speeds[1]
                               +tmp_cells[cellAccess].speeds[2]
                               +tmp_cells[cellAccess].speeds[3]
@@ -322,7 +322,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                               +tmp_cells[cellAccess].speeds[8];
 
         /* compute x velocity component */
-        float u_x = (tmp_cells[cellAccess].speeds[1]
+        double u_x = (tmp_cells[cellAccess].speeds[1]
                       + tmp_cells[cellAccess].speeds[5]
                       + tmp_cells[cellAccess].speeds[8]
                       - (tmp_cells[cellAccess].speeds[3]
@@ -330,7 +330,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                          + tmp_cells[cellAccess].speeds[7]))
                      / local_density;
         /* compute y velocity component */
-        float u_y = (tmp_cells[cellAccess].speeds[2]
+        double u_y = (tmp_cells[cellAccess].speeds[2]
                       + tmp_cells[cellAccess].speeds[5]
                       + tmp_cells[cellAccess].speeds[6]
                       - (tmp_cells[cellAccess].speeds[4]
@@ -339,9 +339,9 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                      / local_density;
 
         /* velocity squared */
-        float u_sq = u_x * u_x + u_y * u_y;
+        double u_sq = u_x * u_x + u_y * u_y;
         /* equilibrium densities */
-        float d_equ[NSPEEDS];
+        double d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
         d_equ[0] = w0 * local_density * (1.0 - 1.5 * u_sq);
         /* axis speeds: weight w1 */
