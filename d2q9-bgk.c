@@ -286,18 +286,17 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
 
-  const double w0 = 4.0 / 9.0;  /* weighting factor */
-  const double w1 = 1.0 / 9.0;  /* weighting factor */
-  const double w2 = 1.0 / 36.0; /* weighting factor */
-
   /* loop over the cells in the grid
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
 
 
-#pragma omp parallel shared(w0,w1,w2, params, cells, tmp_cells, obstacles)
+#pragma omp parallel shared(
 {
+  const double w0 = 4.0 / 9.0;  /* weighting factor */
+  const double w1 = 1.0 / 9.0;  /* weighting factor */
+  const double w2 = 1.0 / 36.0; /* weighting factor */
   int inducVar = 0;
 #pragma omp for
   for(int ii = 0; ii < params.ny; ii++)
@@ -374,7 +373,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 {
   int    tot_cells = 0;  /* no. of cells used in calculation */
-  float tot_u;          /* accumulated magnitudes of velocity for each cell */
+  double tot_u;          /* accumulated magnitudes of velocity for each cell */
 
   /* initialise */
   tot_u = 0.0;
@@ -390,7 +389,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
       {
         int cellAccess = inducVar + jj;
 
-        float local_density = cells[cellAccess].speeds[0]
+        double local_density = cells[cellAccess].speeds[0]
                               +cells[cellAccess].speeds[1]
                               +cells[cellAccess].speeds[2]
                               +cells[cellAccess].speeds[3]
@@ -402,7 +401,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 
 
         /* x-component of velocity */
-        float u_x = (cells[cellAccess].speeds[1]
+        double u_x = (cells[cellAccess].speeds[1]
                       + cells[cellAccess].speeds[5]
                       + cells[cellAccess].speeds[8]
                       - (cells[cellAccess].speeds[3]
@@ -410,7 +409,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
                          + cells[cellAccess].speeds[7]))
                      / local_density;
         /* compute y velocity component */
-        float u_y = (cells[cellAccess].speeds[2]
+        double u_y = (cells[cellAccess].speeds[2]
                       + cells[cellAccess].speeds[5]
                       + cells[cellAccess].speeds[6]
                       - (cells[cellAccess].speeds[4]
