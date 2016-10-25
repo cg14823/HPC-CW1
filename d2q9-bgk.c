@@ -296,6 +296,8 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   const double w1 = 1.0 / 9.0;  /* weighting factor */
   const double w2 = 1.0 / 36.0; /* weighting factor */
 
+  printf("colision");
+
 #pragma omp parallel for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
   for(int ii = 0; ii < params.ny; ii++)
   {
