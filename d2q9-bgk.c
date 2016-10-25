@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
-#pragma omp parallel
+#pragma omp parallel shared (params,cells,tmp_cells,obstacles)
 {
   for (int tt = 0; tt < params.maxIters; tt++)
   {
@@ -231,7 +231,7 @@ int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
 {
   /* loop over _all_ cells */
-#pragma omp for shared(params,cells,tmp_cells)
+#pragma omp for
   for (int ii = 0; ii < params.ny; ii++)
   {
     int y_n = (ii + 1) % params.ny;
@@ -298,7 +298,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-#pragma omp for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
+#pragma omp for
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
