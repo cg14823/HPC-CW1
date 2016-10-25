@@ -24,3 +24,21 @@ check:
 clean:
 	rm -f $(EXE)
 	rm profile.txt
+	rm d2q9-bgk.pomp.c
+	rm d2q9-bgk.pomp.o
+	rm profile.0.0.0
+	rm profile.0.0.1
+	rm profile.0.0.2
+	rm profile.0.0.3
+	rm profile.0.0.4
+	rm profile.0.0.5
+	rm profile.0.0.6
+	rm profile.0.0.7
+	rm profile.0.0.8
+	rm profile.0.0.9
+	rm profile.0.0.10
+	rm profile.0.0.11
+	rm profile.0.0.12
+	rm profile.0.0.13
+	rm profile.0.0.14
+	rm profile.0.0.15
