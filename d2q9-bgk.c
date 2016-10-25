@@ -228,19 +228,19 @@ int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
 
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
 {
+  int y_s = params.ny - 1;
+  int x_w = params.nx - 1;
   /* loop over _all_ cells */
 //#pragma omp parallel for shared(params,cells,tmp_cells)
   for (int ii = 0; ii < params.ny; ii++)
   {
     int y_n = (ii + 1) % params.ny;
-    int y_s = (ii == 0) ? (params.ny - 1) : (ii - 1);
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* determine indices of axis-direction neighbours
       ** respecting periodic boundary conditions (wrap around) */
 
       int x_e = (jj + 1) % params.nx;
-      int x_w = (jj == 0) ? (params.nx - 1) : (jj - 1);
       /* propagate densities to neighbouring cells, following
       ** appropriate directions of travel and writing into
       ** scratch space grid */
@@ -253,7 +253,9 @@ int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
       tmp_cells[y_n * params.nx + x_w].speeds[6] = cells[ii * params.nx + jj].speeds[6]; /* north-west */
       tmp_cells[y_s * params.nx + x_w].speeds[7] = cells[ii * params.nx + jj].speeds[7]; /* south-west */
       tmp_cells[y_s * params.nx + x_e].speeds[8] = cells[ii * params.nx + jj].speeds[8]; /* south-east */
+      x_w = jj;
     }
+    y_s = ii;
   }
 
   return EXIT_SUCCESS;
