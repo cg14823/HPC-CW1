@@ -5,491 +5,597 @@ NODE 0;CONTEXT 0;THREAD 0:
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0        0.044       39,758           1           1   39758476 .TAU application
-100.0           21       39,758           1       80004   39758432 int main(int, char **) C 
- 62.9           38       25,021       40000      160000        626 int timestep(const t_param, t_speed *, t_speed *, int *) C 
- 44.6       17,750       17,750       40000           0        444 int propagate(const t_param, t_speed *, t_speed *) C 
- 36.5       14,527       14,527       40001           0        363 double av_velocity(const t_param, t_speed *, int *) C 
- 16.6           51        6,584       40000       40000        165 int collision(const t_param, t_speed *, t_speed *, int *) C 
- 16.4           12        6,533       40000       40000        163 parallel fork/join [OpenMP]
- 16.4          801        6,520       40000       40000        163 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 14.4           21        5,718       40000       40000        143 parallel begin/end [OpenMP]
- 14.3          359        5,697       40000       40000        142 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 13.4           22        5,338       40000       40000        133 for enter/exit [OpenMP]
- 13.4        1,521        5,315       40000       40000        133 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  9.5           26        3,794       40000       40000         95 barrier enter/exit [OpenMP]
-  9.5        3,767        3,767       40000           0         94 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  1.6          622          622       40000           0         16 int rebound(const t_param, t_speed *, t_speed *, int *) C 
-  0.5          187          187           1           0     187029 int write_values(const t_param, t_speed *, int *, double *) C 
-  0.1           25           25       40000           0          1 int accelerate_flow(const t_param, t_speed *, int *) C 
-  0.0        0.808        0.808           1           0        808 int initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, double **) C 
+100.0        0.047       26,907           1           1   26907052 .TAU application
+100.0           19       26,907           1       80004   26907005 int main(int, char **) C 
+ 54.6       14,690       14,690       40001           0        367 double av_velocity(const t_param, t_speed *, int *) C 
+ 45.1           47       12,127       40000      160000        303 int timestep(const t_param, t_speed *, t_speed *, int *) C 
+ 39.7           22       10,685       80000       80000        134 parallel fork/join [OpenMP]
+ 36.3           41        9,757       80000       80000        122 parallel begin/end [OpenMP]
+ 33.3           40        8,949       80000       80000        112 for enter/exit [OpenMP]
+ 23.9           57        6,417       80000       80000         80 barrier enter/exit [OpenMP]
+ 20.7           36        5,557       40000       40000        139 int collision(const t_param, t_speed *, t_speed *, int *) C 
+ 20.5          463        5,509       40000       40000        138 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 19.4           43        5,207       40000       40000        130 int propagate(const t_param, t_speed *, t_speed *) C 
+ 19.2          442        5,152       40000       40000        129 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 18.7          377        5,025       40000       40000        126 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 17.4          389        4,690       40000       40000        117 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 17.2        1,526        4,627       40000       40000        116 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 15.9          965        4,281       40000       40000        107 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 12.2        3,287        3,287       40000           0         82 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.4        3,073        3,073       40000           0         77 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  4.7        1,260        1,260       40000           0         32 int rebound(const t_param, t_speed *, t_speed *, int *) C 
+  0.3           67           67           1           0      67406 int write_values(const t_param, t_speed *, int *, double *) C 
+  0.2           54           54       40000           0          1 int accelerate_flow(const t_param, t_speed *, int *) C 
+  0.0        0.805        0.805           1           0        805 int initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, double **) C 
   0.0            0        0.345           1           1        345 double calc_reynolds(const t_param, t_speed *, int *) C 
-  0.0        0.341        0.341           1           0        341 int finalise(const t_param *, t_speed **, t_speed **, int **, double **) C 
+  0.0        0.333        0.333           1           0        333 int finalise(const t_param *, t_speed **, t_speed **, int **, double **) C 
 
 NODE 0;CONTEXT 0;THREAD 1:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,544       39,744           1       40000   39744996 .TAU application
- 13.1          409        5,200       40000       40000        130 parallel begin/end [OpenMP]
- 12.1          647        4,791       40000       40000        120 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          292        4,144       40000       40000        104 for enter/exit [OpenMP]
-  9.7        2,143        3,852       40000       40000         96 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.3           57        1,708       40000       40000         43 barrier enter/exit [OpenMP]
-  4.2        1,651        1,651       40000           0         41 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,363       26,900           1       80000   26900674 .TAU application
+ 31.7        1,004        8,537       80000       80000        107 parallel begin/end [OpenMP]
+ 23.5          563        6,321       80000       80000         79 for enter/exit [OpenMP]
+ 14.6          592        3,938       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.4          618        3,594       40000       40000         90 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.5        1,827        3,081       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.0        1,401        2,676       40000       40000         67 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.4          170        2,529       80000       80000         32 barrier enter/exit [OpenMP]
+  4.4        1,180        1,180       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  4.4        1,178        1,178       40000           0         29 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
 
 NODE 0;CONTEXT 0;THREAD 2:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,489       39,755           1       40000   39755895 .TAU application
- 13.2          420        5,266       40000       40000        132 parallel begin/end [OpenMP]
- 12.2          675        4,845       40000       40000        121 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.5          298        4,169       40000       40000        104 for enter/exit [OpenMP]
-  9.7        2,339        3,871       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  3.9           52        1,532       40000       40000         38 barrier enter/exit [OpenMP]
-  3.7        1,479        1,479       40000           0         37 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,283       26,909           1       80000   26909073 .TAU application
+ 32.1          988        8,626       80000       80000        108 parallel begin/end [OpenMP]
+ 23.9          555        6,439       80000       80000         80 for enter/exit [OpenMP]
+ 14.9          590        4,002       40000       40000        100 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.5          607        3,635       40000       40000         91 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,873        3,148       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.2        1,287        2,736       40000       40000         68 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 10.1          168        2,723       80000       80000         34 barrier enter/exit [OpenMP]
+  5.0        1,349        1,349       40000           0         34 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.5        1,205        1,205       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 3:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,636       39,756           1       40000   39756061 .TAU application
- 12.9          473        5,119       40000       40000        128 parallel begin/end [OpenMP]
- 11.7          577        4,646       40000       40000        116 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.2          258        4,068       40000       40000        102 for enter/exit [OpenMP]
-  9.6        1,889        3,809       40000       40000         95 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.8           59        1,919       40000       40000         48 barrier enter/exit [OpenMP]
-  4.7        1,859        1,859       40000           0         46 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,350       26,914           1       80000   26914243 .TAU application
+ 31.8          999        8,563       80000       80000        107 parallel begin/end [OpenMP]
+ 23.7          552        6,372       80000       80000         80 for enter/exit [OpenMP]
+ 14.7          582        3,968       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.4          608        3,595       40000       40000         90 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.6        1,811        3,125       40000       40000         78 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.1          171        2,722       80000       80000         34 barrier enter/exit [OpenMP]
+ 10.0        1,285        2,693       40000       40000         67 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.9        1,307        1,307       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.6        1,243        1,243       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 4:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,679       39,761           1       40000   39761032 .TAU application
- 12.8          459        5,081       40000       40000        127 parallel begin/end [OpenMP]
- 11.6          582        4,622       40000       40000        116 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.2          248        4,040       40000       40000        101 for enter/exit [OpenMP]
-  9.5        2,109        3,791       40000       40000         95 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.2           53        1,681       40000       40000         42 barrier enter/exit [OpenMP]
-  4.1        1,627        1,627       40000           0         41 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,298       26,919           1       80000   26919305 .TAU application
+ 32.0          957        8,620       80000       80000        108 parallel begin/end [OpenMP]
+ 23.5          613        6,331       80000       80000         79 for enter/exit [OpenMP]
+ 14.9          656        4,023       40000       40000        101 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.5          675        3,639       40000       40000         91 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.4        1,833        3,075       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  9.8        1,257        2,642       40000       40000         66 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.8          172        2,626       80000       80000         33 barrier enter/exit [OpenMP]
+  4.8        1,282        1,282       40000           0         32 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.4        1,172        1,172       40000           0         29 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 5:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,543       39,770           1       40000   39770358 .TAU application
- 13.1          480        5,226       40000       40000        131 parallel begin/end [OpenMP]
- 11.9          558        4,746       40000       40000        119 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.5          253        4,187       40000       40000        105 for enter/exit [OpenMP]
-  9.9        1,987        3,934       40000       40000         98 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.9           56        1,946       40000       40000         49 barrier enter/exit [OpenMP]
-  4.8        1,889        1,889       40000           0         47 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,485       26,923           1       80000   26923550 .TAU application
+ 31.3          982        8,437       80000       80000        105 parallel begin/end [OpenMP]
+ 23.5          530        6,332       80000       80000         79 for enter/exit [OpenMP]
+ 14.5          543        3,910       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.2          579        3,544       40000       40000         89 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.6        1,863        3,116       40000       40000         78 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.0        1,284        2,684       40000       40000         67 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.9          160        2,653       80000       80000         33 barrier enter/exit [OpenMP]
+  4.9        1,307        1,307       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.4        1,185        1,185       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 6:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,576       39,774           1       40000   39774749 .TAU application
- 13.1          414        5,198       40000       40000        130 parallel begin/end [OpenMP]
- 12.0          662        4,784       40000       40000        120 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          290        4,121       40000       40000        103 for enter/exit [OpenMP]
-  9.6        2,258        3,831       40000       40000         96 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.0           52        1,573       40000       40000         39 barrier enter/exit [OpenMP]
-  3.8        1,520        1,520       40000           0         38 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,432       26,928           1       80000   26928210 .TAU application
+ 31.5        1,044        8,495       80000       80000        106 parallel begin/end [OpenMP]
+ 23.4          552        6,290       80000       80000         79 for enter/exit [OpenMP]
+ 14.5          566        3,911       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.1          593        3,539       40000       40000         88 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.5        1,822        3,086       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  9.8        1,333        2,652       40000       40000         66 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.6          167        2,582       80000       80000         32 barrier enter/exit [OpenMP]
+  4.5        1,223        1,223       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.4        1,191        1,191       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 7:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,489       39,780           1       40000   39780868 .TAU application
- 13.3          440        5,291       40000       40000        132 parallel begin/end [OpenMP]
- 12.2          623        4,850       40000       40000        121 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.6          275        4,227       40000       40000        106 for enter/exit [OpenMP]
-  9.9        2,332        3,951       40000       40000         99 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.1           50        1,619       40000       40000         40 barrier enter/exit [OpenMP]
-  3.9        1,568        1,568       40000           0         39 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,544       26,932           1       80000   26932486 .TAU application
+ 31.1          956        8,388       80000       80000        105 parallel begin/end [OpenMP]
+ 23.6          501        6,368       80000       80000         80 for enter/exit [OpenMP]
+ 14.5          516        3,900       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.1          547        3,531       40000       40000         88 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,886        3,150       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.1        1,376        2,716       40000       40000         68 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.7          152        2,603       80000       80000         33 barrier enter/exit [OpenMP]
+  4.7        1,252        1,252       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.5        1,198        1,198       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 8:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,689       39,781           1       40000   39781936 .TAU application
- 12.8          467        5,092       40000       40000        127 parallel begin/end [OpenMP]
- 11.6          532        4,624       40000       40000        116 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.3          238        4,092       40000       40000        102 for enter/exit [OpenMP]
-  9.7        1,746        3,853       40000       40000         96 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  5.3           61        2,106       40000       40000         53 barrier enter/exit [OpenMP]
-  5.1        2,044        2,044       40000           0         51 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,349       26,936           1       80000   26936996 .TAU application
+ 31.9        1,030        8,587       80000       80000        107 parallel begin/end [OpenMP]
+ 23.6          572        6,353       80000       80000         79 for enter/exit [OpenMP]
+ 14.7          584        3,952       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.4          617        3,603       40000       40000         90 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.5        1,770        3,097       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.7          177        2,879       80000       80000         36 barrier enter/exit [OpenMP]
+ 10.0        1,131        2,683       40000       40000         67 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  5.4        1,446        1,446       40000           0         36 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.7        1,254        1,254       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 9:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,549       39,787           1       40000   39787828 .TAU application
- 13.2          453        5,238       40000       40000        131 parallel begin/end [OpenMP]
- 12.0          635        4,784       40000       40000        120 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          269        4,149       40000       40000        104 for enter/exit [OpenMP]
-  9.8        1,926        3,879       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.9           55        1,952       40000       40000         49 barrier enter/exit [OpenMP]
-  4.8        1,897        1,897       40000           0         47 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,281       26,941           1       80000   26941410 .TAU application
+ 32.1          951        8,660       80000       80000        108 parallel begin/end [OpenMP]
+ 24.2          569        6,511       80000       80000         81 for enter/exit [OpenMP]
+ 15.0          579        4,034       40000       40000        101 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.6          617        3,674       40000       40000         92 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.8        1,886        3,182       40000       40000         80 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.2        1,350        2,759       40000       40000         69 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 10.0          161        2,705       80000       80000         34 barrier enter/exit [OpenMP]
+  4.9        1,314        1,314       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.6        1,229        1,229       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 10:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,764       39,792           1       40000   39792569 .TAU application
- 12.6          488        5,028       40000       40000        126 parallel begin/end [OpenMP]
- 11.4          559        4,540       40000       40000        114 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.0          239        3,980       40000       40000        100 for enter/exit [OpenMP]
-  9.4        1,756        3,741       40000       40000         94 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  5.0           60        1,984       40000       40000         50 barrier enter/exit [OpenMP]
-  4.8        1,924        1,924       40000           0         48 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,508       26,935           1       80000   26935594 .TAU application
+ 31.3          976        8,426       80000       80000        105 parallel begin/end [OpenMP]
+ 23.4          527        6,293       80000       80000         79 for enter/exit [OpenMP]
+ 14.5          559        3,917       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.1          596        3,532       40000       40000         88 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.5        1,861        3,110       40000       40000         78 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  9.9        1,311        2,655       40000       40000         66 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.6          157        2,593       80000       80000         32 barrier enter/exit [OpenMP]
+  4.6        1,251        1,251       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.4        1,183        1,183       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 11:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,624       39,797           1       40000   39797821 .TAU application
- 13.0          468        5,173       40000       40000        129 parallel begin/end [OpenMP]
- 11.8          517        4,704       40000       40000        118 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.5          232        4,187       40000       40000        105 for enter/exit [OpenMP]
-  9.9        1,742        3,954       40000       40000         99 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  5.6           57        2,211       40000       40000         55 barrier enter/exit [OpenMP]
-  5.4        2,154        2,154       40000           0         54 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,414       26,949           1       80000   26949884 .TAU application
+ 31.7          945        8,535       80000       80000        107 parallel begin/end [OpenMP]
+ 23.9          521        6,451       80000       80000         81 for enter/exit [OpenMP]
+ 14.7          559        3,962       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.5          579        3,627       40000       40000         91 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,885        3,156       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.3        1,357        2,773       40000       40000         69 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 10.0          151        2,687       80000       80000         34 barrier enter/exit [OpenMP]
+  4.9        1,328        1,328       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.5        1,208        1,208       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 12:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,604       39,802           1       40000   39802330 .TAU application
- 13.1          454        5,197       40000       40000        130 parallel begin/end [OpenMP]
- 11.9          603        4,743       40000       40000        119 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          260        4,139       40000       40000        103 for enter/exit [OpenMP]
-  9.7        2,325        3,878       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  3.9           53        1,553       40000       40000         39 barrier enter/exit [OpenMP]
-  3.8        1,499        1,499       40000           0         37 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,206       26,954           1       80000   26954322 .TAU application
+ 32.5          868        8,747       80000       80000        109 parallel begin/end [OpenMP]
+ 24.1          602        6,501       80000       80000         81 for enter/exit [OpenMP]
+ 15.3          681        4,134       40000       40000        103 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.9          696        3,744       40000       40000         94 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,927        3,161       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.2        1,469        2,737       40000       40000         68 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.3          152        2,502       80000       80000         31 barrier enter/exit [OpenMP]
+  4.4        1,177        1,177       40000           0         29 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.3        1,172        1,172       40000           0         29 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 13:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,604       39,807           1       40000   39807256 .TAU application
- 13.1          471        5,202       40000       40000        130 parallel begin/end [OpenMP]
- 11.9          592        4,730       40000       40000        118 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          265        4,138       40000       40000        103 for enter/exit [OpenMP]
-  9.7        2,335        3,872       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  3.9           50        1,537       40000       40000         38 barrier enter/exit [OpenMP]
-  3.7        1,487        1,487       40000           0         37 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,088       26,959           1       80000   26959154 .TAU application
+ 32.9          887        8,870       80000       80000        111 parallel begin/end [OpenMP]
+ 24.6          614        6,626       80000       80000         83 for enter/exit [OpenMP]
+ 15.5          668        4,170       40000       40000        104 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 14.1          688        3,812       40000       40000         95 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.9        1,885        3,206       40000       40000         80 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.4        1,384        2,805       40000       40000         70 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 10.2          157        2,741       80000       80000         34 barrier enter/exit [OpenMP]
+  4.9        1,326        1,326       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.7        1,257        1,257       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 14:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,710       39,812           1       40000   39812170 .TAU application
- 12.8          473        5,101       40000       40000        128 parallel begin/end [OpenMP]
- 11.6          500        4,628       40000       40000        116 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          234        4,128       40000       40000        103 for enter/exit [OpenMP]
-  9.8        1,787        3,893       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  5.3           60        2,105       40000       40000         53 barrier enter/exit [OpenMP]
-  5.1        2,044        2,044       40000           0         51 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,408       26,964           1       80000   26964131 .TAU application
+ 31.7        1,000        8,555       80000       80000        107 parallel begin/end [OpenMP]
+ 23.4          581        6,305       80000       80000         79 for enter/exit [OpenMP]
+ 14.7          611        3,958       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.3          638        3,596       40000       40000         90 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.4        1,799        3,069       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  9.8        1,309        2,653       40000       40000         66 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.7          170        2,614       80000       80000         33 barrier enter/exit [OpenMP]
+  4.6        1,244        1,244       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.5        1,200        1,200       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 15:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,425       39,818           1       40000   39818224 .TAU application
- 13.5          292        5,392       40000       40000        135 parallel begin/end [OpenMP]
- 12.8          773        5,099       40000       40000        127 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.9          382        4,326       40000       40000        108 for enter/exit [OpenMP]
-  9.9        2,119        3,944       40000       40000         99 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.6           59        1,825       40000       40000         46 barrier enter/exit [OpenMP]
-  4.4        1,765        1,765       40000           0         44 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       17,973       26,968           1       80000   26968578 .TAU application
+ 33.4          813        8,995       80000       80000        112 parallel begin/end [OpenMP]
+ 24.8          727        6,689       80000       80000         84 for enter/exit [OpenMP]
+ 15.7          723        4,222       40000       40000        106 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 14.7          769        3,958       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,628        3,159       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 11.4          181        3,086       80000       80000         39 barrier enter/exit [OpenMP]
+ 10.4        1,247        2,802       40000       40000         70 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  5.4        1,463        1,463       40000           0         37 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  5.3        1,441        1,441       40000           0         36 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
 
 NODE 0;CONTEXT 0;THREAD 0:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0        0.044       39,758           1           1   39758476 .TAU application
-100.0           21       39,758           1       80004   39758432 int main(int, char **) C 
- 62.9           38       25,021       40000      160000        626 int timestep(const t_param, t_speed *, t_speed *, int *) C 
- 44.6       17,750       17,750       40000           0        444 int propagate(const t_param, t_speed *, t_speed *) C 
- 36.5       14,527       14,527       40001           0        363 double av_velocity(const t_param, t_speed *, int *) C 
- 16.6           51        6,584       40000       40000        165 int collision(const t_param, t_speed *, t_speed *, int *) C 
- 16.4           12        6,533       40000       40000        163 parallel fork/join [OpenMP]
- 16.4          801        6,520       40000       40000        163 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 14.4           21        5,718       40000       40000        143 parallel begin/end [OpenMP]
- 14.3          359        5,697       40000       40000        142 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 13.4           22        5,338       40000       40000        133 for enter/exit [OpenMP]
- 13.4        1,521        5,315       40000       40000        133 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  9.5           26        3,794       40000       40000         95 barrier enter/exit [OpenMP]
-  9.5        3,767        3,767       40000           0         94 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  1.6          622          622       40000           0         16 int rebound(const t_param, t_speed *, t_speed *, int *) C 
-  0.5          187          187           1           0     187029 int write_values(const t_param, t_speed *, int *, double *) C 
-  0.1           25           25       40000           0          1 int accelerate_flow(const t_param, t_speed *, int *) C 
-  0.0        0.808        0.808           1           0        808 int initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, double **) C 
+100.0        0.047       26,907           1           1   26907052 .TAU application
+100.0           19       26,907           1       80004   26907005 int main(int, char **) C 
+ 54.6       14,690       14,690       40001           0        367 double av_velocity(const t_param, t_speed *, int *) C 
+ 45.1           47       12,127       40000      160000        303 int timestep(const t_param, t_speed *, t_speed *, int *) C 
+ 39.7           22       10,685       80000       80000        134 parallel fork/join [OpenMP]
+ 36.3           41        9,757       80000       80000        122 parallel begin/end [OpenMP]
+ 33.3           40        8,949       80000       80000        112 for enter/exit [OpenMP]
+ 23.9           57        6,417       80000       80000         80 barrier enter/exit [OpenMP]
+ 20.7           36        5,557       40000       40000        139 int collision(const t_param, t_speed *, t_speed *, int *) C 
+ 20.5          463        5,509       40000       40000        138 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 19.4           43        5,207       40000       40000        130 int propagate(const t_param, t_speed *, t_speed *) C 
+ 19.2          442        5,152       40000       40000        129 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 18.7          377        5,025       40000       40000        126 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 17.4          389        4,690       40000       40000        117 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 17.2        1,526        4,627       40000       40000        116 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 15.9          965        4,281       40000       40000        107 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 12.2        3,287        3,287       40000           0         82 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.4        3,073        3,073       40000           0         77 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  4.7        1,260        1,260       40000           0         32 int rebound(const t_param, t_speed *, t_speed *, int *) C 
+  0.3           67           67           1           0      67406 int write_values(const t_param, t_speed *, int *, double *) C 
+  0.2           54           54       40000           0          1 int accelerate_flow(const t_param, t_speed *, int *) C 
+  0.0        0.805        0.805           1           0        805 int initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, double **) C 
   0.0            0        0.345           1           1        345 double calc_reynolds(const t_param, t_speed *, int *) C 
-  0.0        0.341        0.341           1           0        341 int finalise(const t_param *, t_speed **, t_speed **, int **, double **) C 
+  0.0        0.333        0.333           1           0        333 int finalise(const t_param *, t_speed **, t_speed **, int **, double **) C 
 
 NODE 0;CONTEXT 0;THREAD 1:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,544       39,744           1       40000   39744996 .TAU application
- 13.1          409        5,200       40000       40000        130 parallel begin/end [OpenMP]
- 12.1          647        4,791       40000       40000        120 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          292        4,144       40000       40000        104 for enter/exit [OpenMP]
-  9.7        2,143        3,852       40000       40000         96 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.3           57        1,708       40000       40000         43 barrier enter/exit [OpenMP]
-  4.2        1,651        1,651       40000           0         41 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,363       26,900           1       80000   26900674 .TAU application
+ 31.7        1,004        8,537       80000       80000        107 parallel begin/end [OpenMP]
+ 23.5          563        6,321       80000       80000         79 for enter/exit [OpenMP]
+ 14.6          592        3,938       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.4          618        3,594       40000       40000         90 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.5        1,827        3,081       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.0        1,401        2,676       40000       40000         67 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.4          170        2,529       80000       80000         32 barrier enter/exit [OpenMP]
+  4.4        1,180        1,180       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  4.4        1,178        1,178       40000           0         29 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
 
 NODE 0;CONTEXT 0;THREAD 2:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,489       39,755           1       40000   39755895 .TAU application
- 13.2          420        5,266       40000       40000        132 parallel begin/end [OpenMP]
- 12.2          675        4,845       40000       40000        121 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.5          298        4,169       40000       40000        104 for enter/exit [OpenMP]
-  9.7        2,339        3,871       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  3.9           52        1,532       40000       40000         38 barrier enter/exit [OpenMP]
-  3.7        1,479        1,479       40000           0         37 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,283       26,909           1       80000   26909073 .TAU application
+ 32.1          988        8,626       80000       80000        108 parallel begin/end [OpenMP]
+ 23.9          555        6,439       80000       80000         80 for enter/exit [OpenMP]
+ 14.9          590        4,002       40000       40000        100 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.5          607        3,635       40000       40000         91 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,873        3,148       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.2        1,287        2,736       40000       40000         68 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 10.1          168        2,723       80000       80000         34 barrier enter/exit [OpenMP]
+  5.0        1,349        1,349       40000           0         34 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.5        1,205        1,205       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 3:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,636       39,756           1       40000   39756061 .TAU application
- 12.9          473        5,119       40000       40000        128 parallel begin/end [OpenMP]
- 11.7          577        4,646       40000       40000        116 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.2          258        4,068       40000       40000        102 for enter/exit [OpenMP]
-  9.6        1,889        3,809       40000       40000         95 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.8           59        1,919       40000       40000         48 barrier enter/exit [OpenMP]
-  4.7        1,859        1,859       40000           0         46 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,350       26,914           1       80000   26914243 .TAU application
+ 31.8          999        8,563       80000       80000        107 parallel begin/end [OpenMP]
+ 23.7          552        6,372       80000       80000         80 for enter/exit [OpenMP]
+ 14.7          582        3,968       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.4          608        3,595       40000       40000         90 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.6        1,811        3,125       40000       40000         78 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.1          171        2,722       80000       80000         34 barrier enter/exit [OpenMP]
+ 10.0        1,285        2,693       40000       40000         67 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.9        1,307        1,307       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.6        1,243        1,243       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 4:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,679       39,761           1       40000   39761032 .TAU application
- 12.8          459        5,081       40000       40000        127 parallel begin/end [OpenMP]
- 11.6          582        4,622       40000       40000        116 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.2          248        4,040       40000       40000        101 for enter/exit [OpenMP]
-  9.5        2,109        3,791       40000       40000         95 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.2           53        1,681       40000       40000         42 barrier enter/exit [OpenMP]
-  4.1        1,627        1,627       40000           0         41 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,298       26,919           1       80000   26919305 .TAU application
+ 32.0          957        8,620       80000       80000        108 parallel begin/end [OpenMP]
+ 23.5          613        6,331       80000       80000         79 for enter/exit [OpenMP]
+ 14.9          656        4,023       40000       40000        101 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.5          675        3,639       40000       40000         91 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.4        1,833        3,075       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  9.8        1,257        2,642       40000       40000         66 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.8          172        2,626       80000       80000         33 barrier enter/exit [OpenMP]
+  4.8        1,282        1,282       40000           0         32 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.4        1,172        1,172       40000           0         29 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 5:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,543       39,770           1       40000   39770358 .TAU application
- 13.1          480        5,226       40000       40000        131 parallel begin/end [OpenMP]
- 11.9          558        4,746       40000       40000        119 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.5          253        4,187       40000       40000        105 for enter/exit [OpenMP]
-  9.9        1,987        3,934       40000       40000         98 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.9           56        1,946       40000       40000         49 barrier enter/exit [OpenMP]
-  4.8        1,889        1,889       40000           0         47 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,485       26,923           1       80000   26923550 .TAU application
+ 31.3          982        8,437       80000       80000        105 parallel begin/end [OpenMP]
+ 23.5          530        6,332       80000       80000         79 for enter/exit [OpenMP]
+ 14.5          543        3,910       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.2          579        3,544       40000       40000         89 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.6        1,863        3,116       40000       40000         78 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.0        1,284        2,684       40000       40000         67 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.9          160        2,653       80000       80000         33 barrier enter/exit [OpenMP]
+  4.9        1,307        1,307       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.4        1,185        1,185       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 6:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,576       39,774           1       40000   39774749 .TAU application
- 13.1          414        5,198       40000       40000        130 parallel begin/end [OpenMP]
- 12.0          662        4,784       40000       40000        120 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          290        4,121       40000       40000        103 for enter/exit [OpenMP]
-  9.6        2,258        3,831       40000       40000         96 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.0           52        1,573       40000       40000         39 barrier enter/exit [OpenMP]
-  3.8        1,520        1,520       40000           0         38 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,432       26,928           1       80000   26928210 .TAU application
+ 31.5        1,044        8,495       80000       80000        106 parallel begin/end [OpenMP]
+ 23.4          552        6,290       80000       80000         79 for enter/exit [OpenMP]
+ 14.5          566        3,911       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.1          593        3,539       40000       40000         88 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.5        1,822        3,086       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  9.8        1,333        2,652       40000       40000         66 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.6          167        2,582       80000       80000         32 barrier enter/exit [OpenMP]
+  4.5        1,223        1,223       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.4        1,191        1,191       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 7:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,489       39,780           1       40000   39780868 .TAU application
- 13.3          440        5,291       40000       40000        132 parallel begin/end [OpenMP]
- 12.2          623        4,850       40000       40000        121 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.6          275        4,227       40000       40000        106 for enter/exit [OpenMP]
-  9.9        2,332        3,951       40000       40000         99 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.1           50        1,619       40000       40000         40 barrier enter/exit [OpenMP]
-  3.9        1,568        1,568       40000           0         39 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,544       26,932           1       80000   26932486 .TAU application
+ 31.1          956        8,388       80000       80000        105 parallel begin/end [OpenMP]
+ 23.6          501        6,368       80000       80000         80 for enter/exit [OpenMP]
+ 14.5          516        3,900       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.1          547        3,531       40000       40000         88 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,886        3,150       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.1        1,376        2,716       40000       40000         68 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.7          152        2,603       80000       80000         33 barrier enter/exit [OpenMP]
+  4.7        1,252        1,252       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.5        1,198        1,198       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 8:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,689       39,781           1       40000   39781936 .TAU application
- 12.8          467        5,092       40000       40000        127 parallel begin/end [OpenMP]
- 11.6          532        4,624       40000       40000        116 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.3          238        4,092       40000       40000        102 for enter/exit [OpenMP]
-  9.7        1,746        3,853       40000       40000         96 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  5.3           61        2,106       40000       40000         53 barrier enter/exit [OpenMP]
-  5.1        2,044        2,044       40000           0         51 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,349       26,936           1       80000   26936996 .TAU application
+ 31.9        1,030        8,587       80000       80000        107 parallel begin/end [OpenMP]
+ 23.6          572        6,353       80000       80000         79 for enter/exit [OpenMP]
+ 14.7          584        3,952       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.4          617        3,603       40000       40000         90 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.5        1,770        3,097       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.7          177        2,879       80000       80000         36 barrier enter/exit [OpenMP]
+ 10.0        1,131        2,683       40000       40000         67 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  5.4        1,446        1,446       40000           0         36 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.7        1,254        1,254       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 9:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,549       39,787           1       40000   39787828 .TAU application
- 13.2          453        5,238       40000       40000        131 parallel begin/end [OpenMP]
- 12.0          635        4,784       40000       40000        120 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          269        4,149       40000       40000        104 for enter/exit [OpenMP]
-  9.8        1,926        3,879       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.9           55        1,952       40000       40000         49 barrier enter/exit [OpenMP]
-  4.8        1,897        1,897       40000           0         47 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,281       26,941           1       80000   26941410 .TAU application
+ 32.1          951        8,660       80000       80000        108 parallel begin/end [OpenMP]
+ 24.2          569        6,511       80000       80000         81 for enter/exit [OpenMP]
+ 15.0          579        4,034       40000       40000        101 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.6          617        3,674       40000       40000         92 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.8        1,886        3,182       40000       40000         80 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.2        1,350        2,759       40000       40000         69 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 10.0          161        2,705       80000       80000         34 barrier enter/exit [OpenMP]
+  4.9        1,314        1,314       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.6        1,229        1,229       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 10:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,764       39,792           1       40000   39792569 .TAU application
- 12.6          488        5,028       40000       40000        126 parallel begin/end [OpenMP]
- 11.4          559        4,540       40000       40000        114 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.0          239        3,980       40000       40000        100 for enter/exit [OpenMP]
-  9.4        1,756        3,741       40000       40000         94 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  5.0           60        1,984       40000       40000         50 barrier enter/exit [OpenMP]
-  4.8        1,924        1,924       40000           0         48 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,508       26,935           1       80000   26935594 .TAU application
+ 31.3          976        8,426       80000       80000        105 parallel begin/end [OpenMP]
+ 23.4          527        6,293       80000       80000         79 for enter/exit [OpenMP]
+ 14.5          559        3,917       40000       40000         98 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.1          596        3,532       40000       40000         88 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.5        1,861        3,110       40000       40000         78 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  9.9        1,311        2,655       40000       40000         66 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.6          157        2,593       80000       80000         32 barrier enter/exit [OpenMP]
+  4.6        1,251        1,251       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.4        1,183        1,183       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 11:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,624       39,797           1       40000   39797821 .TAU application
- 13.0          468        5,173       40000       40000        129 parallel begin/end [OpenMP]
- 11.8          517        4,704       40000       40000        118 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.5          232        4,187       40000       40000        105 for enter/exit [OpenMP]
-  9.9        1,742        3,954       40000       40000         99 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  5.6           57        2,211       40000       40000         55 barrier enter/exit [OpenMP]
-  5.4        2,154        2,154       40000           0         54 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,414       26,949           1       80000   26949884 .TAU application
+ 31.7          945        8,535       80000       80000        107 parallel begin/end [OpenMP]
+ 23.9          521        6,451       80000       80000         81 for enter/exit [OpenMP]
+ 14.7          559        3,962       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.5          579        3,627       40000       40000         91 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,885        3,156       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.3        1,357        2,773       40000       40000         69 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 10.0          151        2,687       80000       80000         34 barrier enter/exit [OpenMP]
+  4.9        1,328        1,328       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.5        1,208        1,208       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 12:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,604       39,802           1       40000   39802330 .TAU application
- 13.1          454        5,197       40000       40000        130 parallel begin/end [OpenMP]
- 11.9          603        4,743       40000       40000        119 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          260        4,139       40000       40000        103 for enter/exit [OpenMP]
-  9.7        2,325        3,878       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  3.9           53        1,553       40000       40000         39 barrier enter/exit [OpenMP]
-  3.8        1,499        1,499       40000           0         37 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,206       26,954           1       80000   26954322 .TAU application
+ 32.5          868        8,747       80000       80000        109 parallel begin/end [OpenMP]
+ 24.1          602        6,501       80000       80000         81 for enter/exit [OpenMP]
+ 15.3          681        4,134       40000       40000        103 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.9          696        3,744       40000       40000         94 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,927        3,161       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.2        1,469        2,737       40000       40000         68 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.3          152        2,502       80000       80000         31 barrier enter/exit [OpenMP]
+  4.4        1,177        1,177       40000           0         29 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.3        1,172        1,172       40000           0         29 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 13:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,604       39,807           1       40000   39807256 .TAU application
- 13.1          471        5,202       40000       40000        130 parallel begin/end [OpenMP]
- 11.9          592        4,730       40000       40000        118 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          265        4,138       40000       40000        103 for enter/exit [OpenMP]
-  9.7        2,335        3,872       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  3.9           50        1,537       40000       40000         38 barrier enter/exit [OpenMP]
-  3.7        1,487        1,487       40000           0         37 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,088       26,959           1       80000   26959154 .TAU application
+ 32.9          887        8,870       80000       80000        111 parallel begin/end [OpenMP]
+ 24.6          614        6,626       80000       80000         83 for enter/exit [OpenMP]
+ 15.5          668        4,170       40000       40000        104 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 14.1          688        3,812       40000       40000         95 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.9        1,885        3,206       40000       40000         80 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.4        1,384        2,805       40000       40000         70 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 10.2          157        2,741       80000       80000         34 barrier enter/exit [OpenMP]
+  4.9        1,326        1,326       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.7        1,257        1,257       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 14:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,710       39,812           1       40000   39812170 .TAU application
- 12.8          473        5,101       40000       40000        128 parallel begin/end [OpenMP]
- 11.6          500        4,628       40000       40000        116 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.4          234        4,128       40000       40000        103 for enter/exit [OpenMP]
-  9.8        1,787        3,893       40000       40000         97 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  5.3           60        2,105       40000       40000         53 barrier enter/exit [OpenMP]
-  5.1        2,044        2,044       40000           0         51 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       18,408       26,964           1       80000   26964131 .TAU application
+ 31.7        1,000        8,555       80000       80000        107 parallel begin/end [OpenMP]
+ 23.4          581        6,305       80000       80000         79 for enter/exit [OpenMP]
+ 14.7          611        3,958       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.3          638        3,596       40000       40000         90 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.4        1,799        3,069       40000       40000         77 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  9.8        1,309        2,653       40000       40000         66 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  9.7          170        2,614       80000       80000         33 barrier enter/exit [OpenMP]
+  4.6        1,244        1,244       40000           0         31 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  4.5        1,200        1,200       40000           0         30 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
 
 NODE 0;CONTEXT 0;THREAD 15:
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       34,425       39,818           1       40000   39818224 .TAU application
- 13.5          292        5,392       40000       40000        135 parallel begin/end [OpenMP]
- 12.8          773        5,099       40000       40000        127 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.9          382        4,326       40000       40000        108 for enter/exit [OpenMP]
-  9.9        2,119        3,944       40000       40000         99 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  4.6           59        1,825       40000       40000         46 barrier enter/exit [OpenMP]
-  4.4        1,765        1,765       40000           0         44 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
+100.0       17,973       26,968           1       80000   26968578 .TAU application
+ 33.4          813        8,995       80000       80000        112 parallel begin/end [OpenMP]
+ 24.8          727        6,689       80000       80000         84 for enter/exit [OpenMP]
+ 15.7          723        4,222       40000       40000        106 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 14.7          769        3,958       40000       40000         99 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 11.7        1,628        3,159       40000       40000         79 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 11.4          181        3,086       80000       80000         39 barrier enter/exit [OpenMP]
+ 10.4        1,247        2,802       40000       40000         70 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  5.4        1,463        1,463       40000           0         37 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  5.3        1,441        1,441       40000           0         36 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
 
 FUNCTION SUMMARY (total):
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0    17:17.864    21:13.005          32     1.2E+06   39781411 .TAU application
- 13.1       13,379     2:47.061    1.28E+06    1.28E+06        131 parallel begin/end [OpenMP]
- 12.1       18,802     2:33.682    1.28E+06    1.28E+06        120 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.6        8,128     2:14.880    1.28E+06    1.28E+06        105 for enter/exit [OpenMP]
- 10.0     1:04.646     2:06.752    1.28E+06    1.28E+06         99 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  6.2           42     1:19.516           2      160008   39758432 int main(int, char **) C 
-  4.9        1,739     1:02.105    1.28E+06    1.28E+06         49 barrier enter/exit [OpenMP]
-  4.7     1:00.366     1:00.366    1.28E+06           0         47 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  3.9           77       50,042       80000      320000        626 int timestep(const t_param, t_speed *, t_speed *, int *) C 
-  2.8       35,501       35,501       80000           0        444 int propagate(const t_param, t_speed *, t_speed *) C 
-  2.3       29,055       29,055       80002           0        363 double av_velocity(const t_param, t_speed *, int *) C 
-  1.0          102       13,168       80000       80000        165 int collision(const t_param, t_speed *, t_speed *, int *) C 
-  1.0           25       13,066       80000       80000        163 parallel fork/join [OpenMP]
-  1.0        1,602       13,040       80000       80000        163 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  0.1        1,244        1,244       80000           0         16 int rebound(const t_param, t_speed *, t_speed *, int *) C 
-  0.0          374          374           2           0     187029 int write_values(const t_param, t_speed *, int *, double *) C 
-  0.0           50           50       80000           0          1 int accelerate_flow(const t_param, t_speed *, int *) C 
-  0.0            1            1           2           0        808 int initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, double **) C 
+100.0     9:09.976    14:21.889          32     2.4E+06   26934041 .TAU application
+ 32.2       28,901     4:37.613    2.56E+06    2.56E+06        108 parallel begin/end [OpenMP]
+ 24.4       17,252     3:30.276    2.56E+06    2.56E+06         82 for enter/exit [OpenMP]
+ 15.1       18,786     2:10.067    1.28E+06    1.28E+06        102 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.8       19,649     1:58.644    1.28E+06    1.28E+06         93 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 12.0       58,180     1:43.115    1.28E+06    1.28E+06         81 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.8        5,057     1:33.342    2.56E+06    2.56E+06         36 barrier enter/exit [OpenMP]
+ 10.4       41,501     1:29.909    1.28E+06    1.28E+06         70 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  6.2           39       53,814           2      160008   26907005 int main(int, char **) C 
+  5.3       45,439       45,439    1.28E+06           0         35 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  5.0       42,845       42,845    1.28E+06           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  3.4       29,381       29,381       80002           0        367 double av_velocity(const t_param, t_speed *, int *) C 
+  2.8           95       24,255       80000      320000        303 int timestep(const t_param, t_speed *, t_speed *, int *) C 
+  2.5           45       21,371      160000      160000        134 parallel fork/join [OpenMP]
+  1.3           72       11,115       80000       80000        139 int collision(const t_param, t_speed *, t_speed *, int *) C 
+  1.3          926       11,019       80000       80000        138 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  1.2           87       10,415       80000       80000        130 int propagate(const t_param, t_speed *, t_speed *) C 
+  1.2          884       10,305       80000       80000        129 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  0.3        2,520        2,520       80000           0         32 int rebound(const t_param, t_speed *, t_speed *, int *) C 
+  0.0          134          134           2           0      67406 int write_values(const t_param, t_speed *, int *, double *) C 
+  0.0          108          108       80000           0          1 int accelerate_flow(const t_param, t_speed *, int *) C 
+  0.0            1            1           2           0        805 int initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, double **) C 
   0.0            0         0.69           2           2        345 double calc_reynolds(const t_param, t_speed *, int *) C 
-  0.0        0.682        0.682           2           0        341 int finalise(const t_param *, t_speed **, t_speed **, int **, double **) C 
+  0.0        0.666        0.666           2           0        333 int finalise(const t_param *, t_speed **, t_speed **, int **, double **) C 
 
 FUNCTION SUMMARY (mean):
 ---------------------------------------------------------------------------------------
 %Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
               msec   total msec                          usec/call 
 ---------------------------------------------------------------------------------------
-100.0       32,433       39,781           1     37500.1   39781411 .TAU application
- 13.1          418        5,220       40000       40000        131 parallel begin/end [OpenMP]
- 12.1          587        4,802       40000       40000        120 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
- 10.6          254        4,215       40000       40000        105 for enter/exit [OpenMP]
- 10.0        2,020        3,961       40000       40000         99 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  6.2            1        2,484      0.0625     5000.25   39758432 int main(int, char **) C 
-  4.9           54        1,940       40000       40000         49 barrier enter/exit [OpenMP]
-  4.7        1,886        1,886       40000           0         47 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  3.9            2        1,563        2500       10000        626 int timestep(const t_param, t_speed *, t_speed *, int *) C 
-  2.8        1,109        1,109        2500           0        444 int propagate(const t_param, t_speed *, t_speed *) C 
-  2.3          907          907     2500.06           0        363 double av_velocity(const t_param, t_speed *, int *) C 
-  1.0            3          411        2500        2500        165 int collision(const t_param, t_speed *, t_speed *, int *) C 
-  1.0        0.791          408        2500        2500        163 parallel fork/join [OpenMP]
-  1.0           50          407        2500        2500        163 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <297, 363>]
-  0.1           38           38        2500           0         16 int rebound(const t_param, t_speed *, t_speed *, int *) C 
-  0.0           11           11      0.0625           0     187029 int write_values(const t_param, t_speed *, int *, double *) C 
-  0.0            1            1        2500           0          1 int accelerate_flow(const t_param, t_speed *, int *) C 
-  0.0       0.0505       0.0505      0.0625           0        808 int initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, double **) C 
+100.0       17,186       26,934           1     75000.1   26934041 .TAU application
+ 32.2          903        8,675       80000       80000        108 parallel begin/end [OpenMP]
+ 24.4          539        6,571       80000       80000         82 for enter/exit [OpenMP]
+ 15.1          587        4,064       40000       40000        102 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 13.8          614        3,707       40000       40000         93 parallelfor (parallel begin/end) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+ 12.0        1,818        3,222       40000       40000         81 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+ 10.8          158        2,916       80000       80000         36 barrier enter/exit [OpenMP]
+ 10.4        1,296        2,809       40000       40000         70 parallelfor (loop body) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  6.2            1        1,681      0.0625     5000.25   26907005 int main(int, char **) C 
+  5.3        1,419        1,419       40000           0         35 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  5.0        1,338        1,338       40000           0         33 parallelfor (barrier enter/exit) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  3.4          918          918     2500.06           0        367 double av_velocity(const t_param, t_speed *, int *) C 
+  2.8            2          757        2500       10000        303 int timestep(const t_param, t_speed *, t_speed *, int *) C 
+  2.5            1          667        5000        5000        134 parallel fork/join [OpenMP]
+  1.3            2          347        2500        2500        139 int collision(const t_param, t_speed *, t_speed *, int *) C 
+  1.3           28          344        2500        2500        138 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <299, 365>]
+  1.2            2          325        2500        2500        130 int propagate(const t_param, t_speed *, t_speed *) C 
+  1.2           27          322        2500        2500        129 parallelfor (parallel fork/join) [OpenMP location: file:/panfs/panasas01/cosc/cg14823/HPC/HPC-CW1/d2q9-bgk.c <232, 257>]
+  0.3           78           78        2500           0         32 int rebound(const t_param, t_speed *, t_speed *, int *) C 
+  0.0            4            4      0.0625           0      67406 int write_values(const t_param, t_speed *, int *, double *) C 
+  0.0            3            3        2500           0          1 int accelerate_flow(const t_param, t_speed *, int *) C 
+  0.0       0.0503       0.0503      0.0625           0        805 int initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, double **) C 
   0.0            0       0.0216      0.0625      0.0625        345 double calc_reynolds(const t_param, t_speed *, int *) C 
-  0.0       0.0213       0.0213      0.0625           0        341 int finalise(const t_param *, t_speed **, t_speed **, int **, double **) C 
+  0.0       0.0208       0.0208      0.0625           0        333 int finalise(const t_param *, t_speed **, t_speed **, int **, double **) C 

@@ -231,15 +231,25 @@ int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
 {
   /* loop over _all_ cells */
+{
+  int pomp2_num_threads = omp_get_max_threads();
+  int pomp2_if = 1;
+  POMP2_Task_handle pomp2_old_task;
+  POMP2_Parallel_fork(&pomp2_region_1, pomp2_if, pomp2_num_threads, &pomp2_old_task, pomp2_ctc_1 );
+#pragma omp parallel     shared(params,cells,tmp_cells) POMP2_DLIST_00001 firstprivate(pomp2_old_task) if(pomp2_if) num_threads(pomp2_num_threads)
+{   POMP2_Parallel_begin( &pomp2_region_1 );
+{   POMP2_For_enter( &pomp2_region_1, pomp2_ctc_1  );
+#pragma omp          for                                                  nowait
   for (int ii = 0; ii < params.ny; ii++)
   {
+    int y_n = (ii + 1) % params.ny;
+    int y_s = (ii == 0) ? (ii + params.ny - 1) : (ii - 1);
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* determine indices of axis-direction neighbours
       ** respecting periodic boundary conditions (wrap around) */
-      int y_n = (ii + 1) % params.ny;
+
       int x_e = (jj + 1) % params.nx;
-      int y_s = (ii == 0) ? (ii + params.ny - 1) : (ii - 1);
       int x_w = (jj == 0) ? (jj + params.nx - 1) : (jj - 1);
       /* propagate densities to neighbouring cells, following
       ** appropriate directions of travel and writing into
@@ -255,6 +265,14 @@ int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
       tmp_cells[y_s * params.nx + x_e].speeds[8] = cells[ii * params.nx + jj].speeds[8]; /* south-east */
     }
   }
+{ POMP2_Task_handle pomp2_old_task;
+  POMP2_Implicit_barrier_enter( &pomp2_region_1, &pomp2_old_task );
+#pragma omp barrier
+  POMP2_Implicit_barrier_exit( &pomp2_region_1, pomp2_old_task ); }
+  POMP2_For_exit( &pomp2_region_1 );
+ }
+  POMP2_Parallel_end( &pomp2_region_1 ); }
+  POMP2_Parallel_join( &pomp2_region_1, pomp2_old_task ); }
 
   return EXIT_SUCCESS;
 }
@@ -300,10 +318,10 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   int pomp2_num_threads = omp_get_max_threads();
   int pomp2_if = 1;
   POMP2_Task_handle pomp2_old_task;
-  POMP2_Parallel_fork(&pomp2_region_1, pomp2_if, pomp2_num_threads, &pomp2_old_task, pomp2_ctc_1 );
-#pragma omp parallel     shared(w0,w1,w2,params,cells,tmp_cells,obstacles) POMP2_DLIST_00001 firstprivate(pomp2_old_task) if(pomp2_if) num_threads(pomp2_num_threads)
-{   POMP2_Parallel_begin( &pomp2_region_1 );
-{   POMP2_For_enter( &pomp2_region_1, pomp2_ctc_1  );
+  POMP2_Parallel_fork(&pomp2_region_2, pomp2_if, pomp2_num_threads, &pomp2_old_task, pomp2_ctc_2 );
+#pragma omp parallel     shared(w0,w1,w2,params,cells,tmp_cells,obstacles) POMP2_DLIST_00002 firstprivate(pomp2_old_task) if(pomp2_if) num_threads(pomp2_num_threads)
+{   POMP2_Parallel_begin( &pomp2_region_2 );
+{   POMP2_For_enter( &pomp2_region_2, pomp2_ctc_2  );
 #pragma omp          for                                                                     nowait
   for (int ii = 0; ii < params.ny; ii++)
   {
@@ -372,13 +390,13 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
     }
   }
 { POMP2_Task_handle pomp2_old_task;
-  POMP2_Implicit_barrier_enter( &pomp2_region_1, &pomp2_old_task );
+  POMP2_Implicit_barrier_enter( &pomp2_region_2, &pomp2_old_task );
 #pragma omp barrier
-  POMP2_Implicit_barrier_exit( &pomp2_region_1, pomp2_old_task ); }
-  POMP2_For_exit( &pomp2_region_1 );
+  POMP2_Implicit_barrier_exit( &pomp2_region_2, pomp2_old_task ); }
+  POMP2_For_exit( &pomp2_region_2 );
  }
-  POMP2_Parallel_end( &pomp2_region_1 ); }
-  POMP2_Parallel_join( &pomp2_region_1, pomp2_old_task ); }
+  POMP2_Parallel_end( &pomp2_region_2 ); }
+  POMP2_Parallel_join( &pomp2_region_2, pomp2_old_task ); }
   return EXIT_SUCCESS;
 }
 
