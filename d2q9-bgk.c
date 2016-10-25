@@ -229,28 +229,31 @@ int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
 {
   /* loop over _all_ cells */
+//#pragma omp parallel for shared(params,cells,tmp_cells)
   for (int ii = 0; ii < params.ny; ii++)
   {
+    int y_n = (ii + 1) % params.ny;
+    int y_s = (ii == 0) ? (params.ny - 1) : (ii - 1);
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* determine indices of axis-direction neighbours
       ** respecting periodic boundary conditions (wrap around) */
-      int y_n = (ii + 1) % params.ny;
+
       int x_e = (jj + 1) % params.nx;
-      int y_s = (ii == 0) ? (ii + params.ny - 1) : (ii - 1);
-      int x_w = (jj == 0) ? (jj + params.nx - 1) : (jj - 1);
+      int x_w = (jj == 0) ? (params.nx - 1) : (jj - 1);
       /* propagate densities to neighbouring cells, following
       ** appropriate directions of travel and writing into
       ** scratch space grid */
-      tmp_cells[ii * params.nx + jj].speeds[0]  = cells[ii * params.nx + jj].speeds[0]; /* central cell, no movement */
-      tmp_cells[ii * params.nx + x_e].speeds[1] = cells[ii * params.nx + jj].speeds[1]; /* east */
-      tmp_cells[y_n * params.nx + jj].speeds[2]  = cells[ii * params.nx + jj].speeds[2]; /* north */
-      tmp_cells[ii * params.nx + x_w].speeds[3] = cells[ii * params.nx + jj].speeds[3]; /* west */
-      tmp_cells[y_s * params.nx + jj].speeds[4]  = cells[ii * params.nx + jj].speeds[4]; /* south */
-      tmp_cells[y_n * params.nx + x_e].speeds[5] = cells[ii * params.nx + jj].speeds[5]; /* north-east */
-      tmp_cells[y_n * params.nx + x_w].speeds[6] = cells[ii * params.nx + jj].speeds[6]; /* north-west */
-      tmp_cells[y_s * params.nx + x_w].speeds[7] = cells[ii * params.nx + jj].speeds[7]; /* south-west */
-      tmp_cells[y_s * params.nx + x_e].speeds[8] = cells[ii * params.nx + jj].speeds[8]; /* south-east */
+      int cellAccess = ii * params.nx + jj;
+      tmp_cells[cellAccess].speeds[0]  = cells[cellAccess].speeds[0]; /* central cell, no movement */
+      tmp_cells[ii * params.nx + x_e].speeds[1] = cells[cellAccess].speeds[1]; /* east */
+      tmp_cells[y_n * params.nx + jj].speeds[2]  = cells[cellAccess].speeds[2]; /* north */
+      tmp_cells[ii * params.nx + x_w].speeds[3] = cells[cellAccess].speeds[3]; /* west */
+      tmp_cells[y_s * params.nx + jj].speeds[4]  = cells[cellAccess].speeds[4]; /* south */
+      tmp_cells[y_n * params.nx + x_e].speeds[5] = cells[cellAccess].speeds[5]; /* north-east */
+      tmp_cells[y_n * params.nx + x_w].speeds[6] = cells[cellAccess].speeds[6]; /* north-west */
+      tmp_cells[y_s * params.nx + x_w].speeds[7] = cells[cellAccess].speeds[7]; /* south-west */
+      tmp_cells[y_s * params.nx + x_e].speeds[8] = cells[cellAccess].speeds[8]; /* south-east */
     }
   }
 
@@ -269,14 +272,15 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
       {
         /* called after propagate, so taking values from scratch space
         ** mirroring, and writing into main grid */
-        cells[ii * params.nx + jj].speeds[1] = tmp_cells[ii * params.nx + jj].speeds[3];
-        cells[ii * params.nx + jj].speeds[2] = tmp_cells[ii * params.nx + jj].speeds[4];
-        cells[ii * params.nx + jj].speeds[3] = tmp_cells[ii * params.nx + jj].speeds[1];
-        cells[ii * params.nx + jj].speeds[4] = tmp_cells[ii * params.nx + jj].speeds[2];
-        cells[ii * params.nx + jj].speeds[5] = tmp_cells[ii * params.nx + jj].speeds[7];
-        cells[ii * params.nx + jj].speeds[6] = tmp_cells[ii * params.nx + jj].speeds[8];
-        cells[ii * params.nx + jj].speeds[7] = tmp_cells[ii * params.nx + jj].speeds[5];
-        cells[ii * params.nx + jj].speeds[8] = tmp_cells[ii * params.nx + jj].speeds[6];
+        int cellAccess = ii * params.nx + jj;
+        cells[ii * params.nx + jj].speeds[1] = tmp_cells[cellAccess].speeds[3];
+        cells[ii * params.nx + jj].speeds[2] = tmp_cells[cellAccess].speeds[4];
+        cells[ii * params.nx + jj].speeds[3] = tmp_cells[cellAccess].speeds[1];
+        cells[ii * params.nx + jj].speeds[4] = tmp_cells[cellAccess].speeds[2];
+        cells[ii * params.nx + jj].speeds[5] = tmp_cells[cellAccess].speeds[7];
+        cells[ii * params.nx + jj].speeds[6] = tmp_cells[cellAccess].speeds[8];
+        cells[ii * params.nx + jj].speeds[7] = tmp_cells[cellAccess].speeds[5];
+        cells[ii * params.nx + jj].speeds[8] = tmp_cells[cellAccess].speeds[6];
       }
     }
   }
