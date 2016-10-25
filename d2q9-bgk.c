@@ -229,7 +229,7 @@ int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
 {
   /* loop over _all_ cells */
-#pragma omp parallel for firstprivate(y_s,x_w) shared(params,cells,tmp_cells)
+#pragma omp parallel for shared(params,cells,tmp_cells)
   for (int ii = 0; ii < params.ny; ii++)
   {
     int y_n = (ii + 1) % params.ny;
