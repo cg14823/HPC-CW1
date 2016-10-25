@@ -402,22 +402,29 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 
 double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 {
-  int    tot_cells = 0;  /* no. of cells used in calculation */
-  float tot_u;          /* accumulated magnitudes of velocity for each cell */
+  int tot_cells = 0;  /* no. of cells used in calculation */
+  float tot_u = 0.0;          /* accumulated magnitudes of velocity for each cell */
 
   /* initialise */
-  tot_u = 0.0;
-  int inducVar = 0;
   /* loop over all non-blocked cells */
+{
+  int pomp2_num_threads = omp_get_max_threads();
+  int pomp2_if = 1;
+  POMP2_Task_handle pomp2_old_task;
+  POMP2_Parallel_fork(&pomp2_region_3, pomp2_if, pomp2_num_threads, &pomp2_old_task, pomp2_ctc_3 );
+#pragma omp parallel     shared(params,cells,obstacles) reduction(+:tot_cells, tot_u) POMP2_DLIST_00003 firstprivate(pomp2_old_task) if(pomp2_if) num_threads(pomp2_num_threads)
+{   POMP2_Parallel_begin( &pomp2_region_3 );
+{   POMP2_For_enter( &pomp2_region_3, pomp2_ctc_3  );
+#pragma omp          for                                                                                nowait
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
 
       /* ignore occupied cells */
-      if (!obstacles[inducVar +jj])
+      if (!obstacles[ii * params.nx + jj])
       {
-        int cellAccess = inducVar + jj;
+        int cellAccess = ii * params.nx + jj;
 
         float local_density = cells[cellAccess].speeds[0]
                               +cells[cellAccess].speeds[1]
@@ -449,11 +456,18 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
         /* accumulate the norm of x- and y- velocity components */
         tot_u += sqrt((u_x * u_x) + (u_y * u_y));
         /* increase counter of inspected cells */
-        ++tot_cells;
+        tot_cells += 1;
       }
     }
-    inducVar += params.nx;
   }
+{ POMP2_Task_handle pomp2_old_task;
+  POMP2_Implicit_barrier_enter( &pomp2_region_3, &pomp2_old_task );
+#pragma omp barrier
+  POMP2_Implicit_barrier_exit( &pomp2_region_3, pomp2_old_task ); }
+  POMP2_For_exit( &pomp2_region_3 );
+ }
+  POMP2_Parallel_end( &pomp2_region_3 ); }
+  POMP2_Parallel_join( &pomp2_region_3, pomp2_old_task ); }
 
   return tot_u / (double)tot_cells;
 }
