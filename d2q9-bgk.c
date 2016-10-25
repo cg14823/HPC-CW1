@@ -295,19 +295,17 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   const double w0 = 4.0 / 9.0;  /* weighting factor */
   const double w1 = 1.0 / 9.0;  /* weighting factor */
   const double w2 = 1.0 / 36.0; /* weighting factor */
-  int inducVar = 0;
 
-
+#pragma omp parallel for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
   for(int ii = 0; ii < params.ny; ii++)
   {
-#pragma omp parallel for firstprivate (inducVar) shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* don't consider occupied cells */
 
-      if (!obstacles[inducVar +jj])
+      if (!obstacles[ii* params.nx *jj])
       {
-        int cellAccess = inducVar + jj;
+        int cellAccess = ii * params.nx + jj;
         /* compute local density total */
 
         double local_density = tmp_cells[cellAccess].speeds[0]
@@ -364,7 +362,6 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
           }
       }
     }
-      inducVar += params.nx;
   }
   return EXIT_SUCCESS;
 }
