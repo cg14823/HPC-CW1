@@ -146,13 +146,15 @@ int main(int argc, char* argv[])
     obstaclefile = argv[2];
   }
 
+  printf("Start\n");
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
-
+  printf("post initial\n");
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
 
+  printf("beforeloop\n");
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
@@ -296,7 +298,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   const double w1 = 1.0 / 9.0;  /* weighting factor */
   const double w2 = 1.0 / 36.0; /* weighting factor */
 
-  printf("colision");
+  printf("colision\n");
 
 #pragma omp parallel for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
   for(int ii = 0; ii < params.ny; ii++)
@@ -356,12 +358,12 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 
         /* relaxation step */
 
-        for (int kk = 0; kk < NSPEEDS; kk++)
-          {
-            cells[cellAccess].speeds[kk] = tmp_cells[cellAccess].speeds[kk]
-                                                    + params.omega
-                                                    * (d_equ[kk] - tmp_cells[cellAccess].speeds[kk]);
-          }
+        for (int kk = 0; kk < 9; kk++)
+        {
+          cells[cellAccess].speeds[kk] = tmp_cells[cellAccess].speeds[kk]
+                              + params.omega
+                              * (d_equ[kk] - tmp_cells[cellAccess].speeds[kk]);
+        }
       }
     }
   }
