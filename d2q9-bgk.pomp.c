@@ -50,6 +50,7 @@
 ** Be sure to adjust the grid dimensions in the parameter file
 ** if you choose a different obstacle file.
 */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
@@ -287,40 +288,27 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
-
-  const float w0 = 4.0 / 9.0;  /* weighting factor */
-  const float w1 = 1.0 / 9.0;  /* weighting factor */
-  const float w2 = 1.0 / 36.0; /* weighting factor */
+  const double w0 = 4.0 / 9.0;  /* weighting factor */
+  const double w1 = 1.0 / 9.0;  /* weighting factor */
+  const double w2 = 1.0 / 36.0; /* weighting factor */
 
   /* loop over the cells in the grid
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
 
-
-{
-  int pomp2_num_threads = omp_get_max_threads();
-  int pomp2_if = 1;
-  POMP2_Task_handle pomp2_old_task;
-  POMP2_Parallel_fork(&pomp2_region_1, pomp2_if, pomp2_num_threads, &pomp2_old_task, pomp2_ctc_1 );
-#pragma omp parallel shared(w0,w1,w2) POMP2_DLIST_00001 firstprivate(pomp2_old_task) if(pomp2_if) num_threads(pomp2_num_threads)
-{   POMP2_Parallel_begin( &pomp2_region_1 );
-{
-  int inducVar = 0;
-{   POMP2_For_enter( &pomp2_region_2, pomp2_ctc_2  );
-#pragma omp for nowait
-  for(int ii = 0; ii < params.ny; ii++)
+  for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* don't consider occupied cells */
 
-      if (!obstacles[inducVar +jj])
+      if (!obstacles[ii * params.nx + jj])
       {
-        int cellAccess = inducVar + jj;
+        int cellAccess = ii * params.nx + jj;
         /* compute local density total */
 
-        float local_density = tmp_cells[cellAccess].speeds[0]
+        double local_density = tmp_cells[cellAccess].speeds[0]
                               +tmp_cells[cellAccess].speeds[1]
                               +tmp_cells[cellAccess].speeds[2]
                               +tmp_cells[cellAccess].speeds[3]
@@ -331,7 +319,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                               +tmp_cells[cellAccess].speeds[8];
 
         /* compute x velocity component */
-        float u_x = (tmp_cells[cellAccess].speeds[1]
+        double u_x = (tmp_cells[cellAccess].speeds[1]
                       + tmp_cells[cellAccess].speeds[5]
                       + tmp_cells[cellAccess].speeds[8]
                       - (tmp_cells[cellAccess].speeds[3]
@@ -339,7 +327,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                          + tmp_cells[cellAccess].speeds[7]))
                      / local_density;
         /* compute y velocity component */
-        float u_y = (tmp_cells[cellAccess].speeds[2]
+        double u_y = (tmp_cells[cellAccess].speeds[2]
                       + tmp_cells[cellAccess].speeds[5]
                       + tmp_cells[cellAccess].speeds[6]
                       - (tmp_cells[cellAccess].speeds[4]
@@ -348,9 +336,9 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
                      / local_density;
 
         /* velocity squared */
-        float u_sq = u_x * u_x + u_y * u_y;
+        double u_sq = u_x * u_x + u_y * u_y;
         /* equilibrium densities */
-        float d_equ[NSPEEDS];
+        double d_equ[NSPEEDS];
         /* zero velocity density: weight w0 */
         d_equ[0] = w0 * local_density * (1.0 - 1.5 * u_sq);
         /* axis speeds: weight w1 */
@@ -374,21 +362,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
           }
       }
     }
-      inducVar += params.nx;
   }
-{ POMP2_Task_handle pomp2_old_task;
-  POMP2_Implicit_barrier_enter( &pomp2_region_2, &pomp2_old_task );
-#pragma omp barrier
-  POMP2_Implicit_barrier_exit( &pomp2_region_2, pomp2_old_task ); }
-  POMP2_For_exit( &pomp2_region_2 );
- }
-}
-{ POMP2_Task_handle pomp2_old_task;
-  POMP2_Implicit_barrier_enter( &pomp2_region_1, &pomp2_old_task );
-#pragma omp barrier
-  POMP2_Implicit_barrier_exit( &pomp2_region_1, pomp2_old_task ); }
-  POMP2_Parallel_end( &pomp2_region_1 ); }
-  POMP2_Parallel_join( &pomp2_region_1, pomp2_old_task ); }
   return EXIT_SUCCESS;
 }
 
