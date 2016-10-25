@@ -231,7 +231,7 @@ int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
   int y_s = params.ny - 1;
   int x_w = params.nx - 1;
   /* loop over _all_ cells */
-//#pragma omp parallel for shared(params,cells,tmp_cells)
+#pragma omp parallel for firstprivate(y_s,x_w) shared(params,cells,tmp_cells)
   for (int ii = 0; ii < params.ny; ii++)
   {
     int y_n = (ii + 1) % params.ny;
