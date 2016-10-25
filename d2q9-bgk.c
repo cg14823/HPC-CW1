@@ -229,7 +229,7 @@ int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells)
 {
   /* loop over _all_ cells */
-#pragma omp  for shared(params,cells,tmp_cells)
+#pragma omp parallel for shared(params,cells,tmp_cells)
   for (int ii = 0; ii < params.ny; ii++)
   {
     int y_n = (ii + 1) % params.ny;
@@ -296,7 +296,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-#pragma omp for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
+#pragma omp parallel for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
