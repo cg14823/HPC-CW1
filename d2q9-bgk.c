@@ -48,6 +48,7 @@
 ** Be sure to adjust the grid dimensions in the parameter file
 ** if you choose a different obstacle file.
 */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
@@ -146,15 +147,13 @@ int main(int argc, char* argv[])
     obstaclefile = argv[2];
   }
 
-  printf("Start\n");
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
-  printf("post initial\n");
+
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
 
-  printf("beforeloop\n");
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
@@ -287,27 +286,22 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
+  const double w0 = 4.0 / 9.0;  /* weighting factor */
+  const double w1 = 1.0 / 9.0;  /* weighting factor */
+  const double w2 = 1.0 / 36.0; /* weighting factor */
 
   /* loop over the cells in the grid
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
 
-
-  const double w0 = 4.0 / 9.0;  /* weighting factor */
-  const double w1 = 1.0 / 9.0;  /* weighting factor */
-  const double w2 = 1.0 / 36.0; /* weighting factor */
-
-  printf("colision\n");
-
-//#pragma omp parallel for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
-  for(int ii = 0; ii < params.ny; ii++)
+  for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* don't consider occupied cells */
 
-      if (!obstacles[ii* params.nx *jj])
+      if (!obstacles[ii * params.nx + jj])
       {
         int cellAccess = ii * params.nx + jj;
         /* compute local density total */
@@ -358,12 +352,12 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 
         /* relaxation step */
 
-        for (int kk = 0; kk < 9; kk++)
-        {
-          cells[cellAccess].speeds[kk] = tmp_cells[cellAccess].speeds[kk]
-                              + params.omega
-                              * (d_equ[kk] - tmp_cells[cellAccess].speeds[kk]);
-        }
+        for (int kk = 0; kk < NSPEEDS; kk++)
+          {
+            cells[cellAccess].speeds[kk] = tmp_cells[cellAccess].speeds[kk]
+                                                    + params.omega
+                                                    * (d_equ[kk] - tmp_cells[cellAccess].speeds[kk]);
+          }
       }
     }
   }
@@ -373,7 +367,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 {
   int    tot_cells = 0;  /* no. of cells used in calculation */
-  double tot_u;          /* accumulated magnitudes of velocity for each cell */
+  float tot_u;          /* accumulated magnitudes of velocity for each cell */
 
   /* initialise */
   tot_u = 0.0;
@@ -389,7 +383,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
       {
         int cellAccess = inducVar + jj;
 
-        double local_density = cells[cellAccess].speeds[0]
+        float local_density = cells[cellAccess].speeds[0]
                               +cells[cellAccess].speeds[1]
                               +cells[cellAccess].speeds[2]
                               +cells[cellAccess].speeds[3]
@@ -401,7 +395,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 
 
         /* x-component of velocity */
-        double u_x = (cells[cellAccess].speeds[1]
+        float u_x = (cells[cellAccess].speeds[1]
                       + cells[cellAccess].speeds[5]
                       + cells[cellAccess].speeds[8]
                       - (cells[cellAccess].speeds[3]
@@ -409,7 +403,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
                          + cells[cellAccess].speeds[7]))
                      / local_density;
         /* compute y velocity component */
-        double u_y = (cells[cellAccess].speeds[2]
+        float u_y = (cells[cellAccess].speeds[2]
                       + cells[cellAccess].speeds[5]
                       + cells[cellAccess].speeds[6]
                       - (cells[cellAccess].speeds[4]
