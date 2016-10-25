@@ -369,7 +369,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 {
   int    tot_cells = 0;  /* no. of cells used in calculation */
-  double tot_u;          /* accumulated magnitudes of velocity for each cell */
+  float tot_u;          /* accumulated magnitudes of velocity for each cell */
 
   /* initialise */
   tot_u = 0.0;
@@ -383,9 +383,9 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
       /* ignore occupied cells */
       if (!obstacles[inducVar +jj])
       {
-        int cellAccess = ii * params.nx + jj;
+        int cellAccess = inducVar + jj;
 
-        double local_density = cells[cellAccess].speeds[0]
+        float local_density = cells[cellAccess].speeds[0]
                               +cells[cellAccess].speeds[1]
                               +cells[cellAccess].speeds[2]
                               +cells[cellAccess].speeds[3]
@@ -397,7 +397,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 
 
         /* x-component of velocity */
-        double u_x = (cells[cellAccess].speeds[1]
+        float u_x = (cells[cellAccess].speeds[1]
                       + cells[cellAccess].speeds[5]
                       + cells[cellAccess].speeds[8]
                       - (cells[cellAccess].speeds[3]
@@ -405,7 +405,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
                          + cells[cellAccess].speeds[7]))
                      / local_density;
         /* compute y velocity component */
-        double u_y = (cells[cellAccess].speeds[2]
+        float u_y = (cells[cellAccess].speeds[2]
                       + cells[cellAccess].speeds[5]
                       + cells[cellAccess].speeds[6]
                       - (cells[cellAccess].speeds[4]
@@ -418,6 +418,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
         ++tot_cells;
       }
     }
+    inducVar += params.nx;
   }
 
   return tot_u / (double)tot_cells;
