@@ -300,19 +300,14 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* don't consider occupied cells */
+
       if (!obstacles[inducVar + jj])
       {
         int cellAccess = inducVar + jj;
-        double local_density = tmp_cells[cellAccess].speeds[0]
-                      +tmp_cells[cellAccess].speeds[1]
-                      +tmp_cells[cellAccess].speeds[2]
-                      +tmp_cells[cellAccess].speeds[3]
-                      +tmp_cells[cellAccess].speeds[4]
-                      +tmp_cells[cellAccess].speeds[5]
-                      +tmp_cells[cellAccess].speeds[6]
-                      +tmp_cells[cellAccess].speeds[7]
-                      +tmp_cells[cellAccess].speeds[8];
-
+        for (int kk = 0; kk < NSPEEDS; kk++)
+        {
+          local_density += tmp_cells[cellAccess].speeds[kk];
+        }
 
         /* compute x velocity component */
         double u_x = (tmp_cells[cellAccess].speeds[1]
@@ -371,38 +366,39 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 
   /* initialise */
   tot_u = 0.0;
-
+  int inducVar = 0;
   /* loop over all non-blocked cells */
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
     {
       /* ignore occupied cells */
-      if (!obstacles[ii * params.nx + jj])
+      if (!obstacles[inducVar + jj])
       {
+        int cellAccess = inducVar + jj;
         /* local density total */
         double local_density = 0.0;
 
         for (int kk = 0; kk < NSPEEDS; kk++)
         {
-          local_density += cells[ii * params.nx + jj].speeds[kk];
+          local_density += cells[cellAccess].speeds[kk];
         }
 
         /* x-component of velocity */
-        double u_x = (cells[ii * params.nx + jj].speeds[1]
-                      + cells[ii * params.nx + jj].speeds[5]
-                      + cells[ii * params.nx + jj].speeds[8]
-                      - (cells[ii * params.nx + jj].speeds[3]
-                         + cells[ii * params.nx + jj].speeds[6]
-                         + cells[ii * params.nx + jj].speeds[7]))
+        double u_x = (cells[cellAccess].speeds[1]
+                      + cells[cellAccess].speeds[5]
+                      + cells[cellAccess].speeds[8]
+                      - (cells[cellAccess].speeds[3]
+                         + cells[cellAccess].speeds[6]
+                         + cells[cellAccess].speeds[7]))
                      / local_density;
         /* compute y velocity component */
-        double u_y = (cells[ii * params.nx + jj].speeds[2]
-                      + cells[ii * params.nx + jj].speeds[5]
-                      + cells[ii * params.nx + jj].speeds[6]
-                      - (cells[ii * params.nx + jj].speeds[4]
-                         + cells[ii * params.nx + jj].speeds[7]
-                         + cells[ii * params.nx + jj].speeds[8]))
+        double u_y = (cells[cellAccess].speeds[2]
+                      + cells[cellAccess].speeds[5]
+                      + cells[cellAccess].speeds[6]
+                      - (cells[cellAccess].speeds[4]
+                         + cells[cellAccess].speeds[7]
+                         + cells[cellAccess].speeds[8]))
                      / local_density;
         /* accumulate the norm of x- and y- velocity components */
         tot_u += sqrt((u_x * u_x) + (u_y * u_y));
@@ -410,6 +406,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
         ++tot_cells;
       }
     }
+    inducVar += params.nx;
   }
 
   return tot_u / (double)tot_cells;
