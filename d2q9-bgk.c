@@ -372,7 +372,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 
   /* initialise */
   /* loop over all non-blocked cells */
-#pragma omp for shared(tot_cells,tot_u) reduction(+:tot_cells, tot_u)
+#pragma omp for reduction(+:tot_cells, tot_u)
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
