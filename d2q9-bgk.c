@@ -303,11 +303,15 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       {
         double local_density = 0.0;
 
-        for (int kk = 0; kk < NSPEEDS; kk++)
-        {
-          local_density += tmp_cells[ii * params.nx + jj].speeds[kk];
-        }
-
+        double local_density = tmp_cells[ii * params.nx + jj].speeds[0]
+                              +tmp_cells[ii * params.nx + jj].speeds[1]
+                              +tmp_cells[ii * params.nx + jj].speeds[2]
+                              +tmp_cells[ii * params.nx + jj].speeds[3]
+                              +tmp_cells[ii * params.nx + jj].speeds[4]
+                              +tmp_cells[ii * params.nx + jj].speeds[5]
+                              +tmp_cells[ii * params.nx + jj].speeds[6]
+                              +tmp_cells[ii * params.nx + jj].speeds[7]
+                              +tmp_cells[ii * params.nx + jj].speeds[8];
         /* compute x velocity component */
         double u_x = (tmp_cells[ii * params.nx + jj].speeds[1]
                     + tmp_cells[ii * params.nx + jj].speeds[5]
