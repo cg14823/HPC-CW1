@@ -121,6 +121,9 @@ void usage(const char* exe);
 ** main program:
 ** initialise, timestep loop, finalise
 */
+int tot_cells;  /* no. of cells used in calculation */
+double tot_u;          /* accumulated magnitudes of velocity for each cell */
+
 int main(int argc, char* argv[])
 {
   char*    paramfile = NULL;    /* name of the input parameter file */
@@ -149,11 +152,10 @@ int main(int argc, char* argv[])
 
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
-
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
-#pragma omp parallel shared(params, cells, tmp_cells, obstacles)
+#pragma omp parallel shared(params, cells, tmp_cells, obstacles,tot_u, tot_cells)
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
@@ -367,9 +369,8 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
 
 double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 {
-  int tot_cells = 0;  /* no. of cells used in calculation */
-  double tot_u = 0.0;          /* accumulated magnitudes of velocity for each cell */
-
+  tot_u = 0.0;
+  tot_cells = 0;
   /* initialise */
   /* loop over all non-blocked cells */
 #pragma omp for reduction(+:tot_cells, tot_u)
