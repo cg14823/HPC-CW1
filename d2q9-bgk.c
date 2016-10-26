@@ -156,11 +156,12 @@ int main(int argc, char* argv[])
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
 
 #pragma omp parallel shared(params, cells, tmp_cells, obstacles)
+{
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
   }
-
+}
   gettimeofday(&timstr, NULL);
   toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   getrusage(RUSAGE_SELF, &ru);
@@ -596,7 +597,7 @@ double calc_reynolds(const t_param params, t_speed* cells, int* obstacles)
 {
   const double viscosity = 1.0 / 6.0 * (2.0 / params.omega - 1.0);
 
-  return av_velocity(params, cells, obstacles,0,0.0) * params.reynolds_dim / viscosity;
+  return av_velocity(params, cells, obstacles) * params.reynolds_dim / viscosity;
 }
 
 double total_density(const t_param params, t_speed* cells)
