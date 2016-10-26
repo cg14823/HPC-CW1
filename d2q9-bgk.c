@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
-    av_vels[tt] = av_velocity(params, cells, obstacles,tot_cells,tot_u);
+    av_vels[tt] = av_velocity(params, cells, obstacles);
     tot_cells = 0;  /* no. of cells used in calculation */
     tot_u = 0.0;
 #ifdef DEBUG
@@ -372,7 +372,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   return EXIT_SUCCESS;
 }
 
-double av_velocity(const t_param params, t_speed* cells, int* obstacles, tot_cells,tot_u)
+double av_velocity(const t_param params, t_speed* cells, int* obstacles, int tot_cells, double tot_u)
 {
   tot_u = 0.0;
   tot_cells = 0;
@@ -608,7 +608,7 @@ double calc_reynolds(const t_param params, t_speed* cells, int* obstacles)
 {
   const double viscosity = 1.0 / 6.0 * (2.0 / params.omega - 1.0);
 
-  return av_velocity(params, cells, obstacles) * params.reynolds_dim / viscosity;
+  return av_velocity(params, cells, obstacles,0,0.0) * params.reynolds_dim / viscosity;
 }
 
 double total_density(const t_param params, t_speed* cells)
