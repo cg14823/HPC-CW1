@@ -346,7 +346,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         /* relaxation step */
         for (int kk = 0; kk < NSPEEDS; kk++)
         {
-            cells[cellAccess].speeds[kk] = tmp_cells[ii * params.nx + jj].speeds[kk]
+            cells[ii * params.nx + jj].speeds[kk] = tmp_cells[ii * params.nx + jj].speeds[kk]
                                                     + params.omega
                                                     * (d_equ[kk] - tmp_cells[ii * params.nx + jj].speeds[kk]);
         }
