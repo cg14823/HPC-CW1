@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
 
   /* iterate for maxIters timesteps */
   int tot_cells = 0;  /* no. of cells used in calculation */
-  double tot_u 0.0;          /* accumulated magnitudes of velocity for each cell */
+  double tot_u = 0.0;          /* accumulated magnitudes of velocity for each cell */
 
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
     timestep(params, cells, tmp_cells, obstacles);
     av_vels[tt] = av_velocity(params, cells, obstacles,tot_cells,tot_u);
     tot_cells = 0;  /* no. of cells used in calculation */
-    tot_u 0.0;
+    tot_u = 0.0;
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
     printf("av velocity: %.12E\n", av_vels[tt]);
