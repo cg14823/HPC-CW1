@@ -304,6 +304,8 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       if (!obstacles[inducVar + jj])
       {
         int cellAccess = inducVar + jj;
+        /* local density total */
+        double local_density = 0.0;
         for (int kk = 0; kk < NSPEEDS; kk++)
         {
           local_density += tmp_cells[cellAccess].speeds[kk];
