@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
-    av_vels[tt] = av_velocity(params, cells, obstacles);
+    av_vels[tt] = av_velocity(params, cells, obstacles,tot_cells, tot_u);
     tot_cells = 0;  /* no. of cells used in calculation */
     tot_u = 0.0;
 #ifdef DEBUG
