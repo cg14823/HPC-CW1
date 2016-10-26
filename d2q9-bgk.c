@@ -108,7 +108,7 @@ int finalise(const t_param* params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 double total_density(const t_param params, t_speed* cells);
 
 /* compute average velocity */
-double av_velocity(const t_param params, t_speed* cells, int* obstacles, int tot_cells, double tot_u);
+double av_velocity(const t_param params, t_speed* cells, int* obstacles);
 
 /* calculate Reynolds number */
 double calc_reynolds(const t_param params, t_speed* cells, int* obstacles);
@@ -152,24 +152,13 @@ int main(int argc, char* argv[])
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
 
   /* iterate for maxIters timesteps */
-  int tot_cells = 0;  /* no. of cells used in calculation */
-  double tot_u = 0.0;          /* accumulated magnitudes of velocity for each cell */
-
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
 
-#pragma omp parallel shared(params, cells, tmp_cells, obstacles,tot_u, tot_cells)
+#pragma omp parallel shared(params, cells, tmp_cells, obstacles)
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
-    av_vels[tt] = av_velocity(params, cells, obstacles,tot_cells, tot_u);
-    tot_cells = 0;  /* no. of cells used in calculation */
-    tot_u = 0.0;
-#ifdef DEBUG
-    printf("==timestep: %d==\n", tt);
-    printf("av velocity: %.12E\n", av_vels[tt]);
-    printf("tot density: %.12E\n", total_density(params, cells));
-#endif
   }
 
   gettimeofday(&timstr, NULL);
@@ -372,13 +361,12 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   return EXIT_SUCCESS;
 }
 
-double av_velocity(const t_param params, t_speed* cells, int* obstacles, int tot_cells, double tot_u)
+double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 {
-  tot_u = 0.0;
-  tot_cells = 0;
+  int tot_cells = 0;  /* no. of cells used in calculation */
+  double tot_u = 0.0;          /* accumulated magnitudes of velocity for each cell */
   /* initialise */
   /* loop over all non-blocked cells */
-#pragma omp for reduction(+:tot_cells, tot_u)
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
