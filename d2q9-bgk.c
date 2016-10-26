@@ -153,8 +153,7 @@ int main(int argc, char* argv[])
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
-#pragma omp parallel shared(params, cells, tmp_cells, obstacles) reduction(+:tot_cells, tot_u)
-{
+#pragma omp parallel shared(params, cells, tmp_cells, obstacles)
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
@@ -165,7 +164,7 @@ int main(int argc, char* argv[])
     printf("tot density: %.12E\n", total_density(params, cells));
 #endif
   }
-}
+
   gettimeofday(&timstr, NULL);
   toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   getrusage(RUSAGE_SELF, &ru);
@@ -373,7 +372,7 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
 
   /* initialise */
   /* loop over all non-blocked cells */
-#pragma omp for
+#pragma omp for reduction(+:tot_cells, tot_u)
   for (int ii = 0; ii < params.ny; ii++)
   {
     for (int jj = 0; jj < params.nx; jj++)
