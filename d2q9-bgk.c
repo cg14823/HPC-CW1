@@ -301,8 +301,6 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
       /* don't consider occupied cells */
       if (!obstacles[ii * params.nx + jj])
       {
-        double local_density = 0.0;
-
         double local_density = tmp_cells[ii * params.nx + jj].speeds[0]
                               +tmp_cells[ii * params.nx + jj].speeds[1]
                               +tmp_cells[ii * params.nx + jj].speeds[2]
