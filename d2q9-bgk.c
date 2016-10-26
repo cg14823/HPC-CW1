@@ -392,18 +392,16 @@ double av_velocity(const t_param params, t_speed* cells, int* obstacles)
                       + cells[cellAccess].speeds[8]
                       - (cells[cellAccess].speeds[3]
                          + cells[cellAccess].speeds[6]
-                         + cells[cellAccess].speeds[7]))
-                     / local_density;
+                         + cells[cellAccess].speeds[7]));
         /* compute y velocity component */
         double u_y = (cells[cellAccess].speeds[2]
                       + cells[cellAccess].speeds[5]
                       + cells[cellAccess].speeds[6]
                       - (cells[cellAccess].speeds[4]
                          + cells[cellAccess].speeds[7]
-                         + cells[cellAccess].speeds[8]))
-                     / local_density;
+                         + cells[cellAccess].speeds[8]));
         /* accumulate the norm of x- and y- velocity components */
-        tot_u += sqrt((u_x * u_x) + (u_y * u_y));
+        tot_u += sqrt((u_x * u_x) + (u_y * u_y))/local_density;
         /* increase counter of inspected cells */
         ++tot_cells;
       }
