@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
   /* iterate for maxIters timesteps */
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
-#pragma omp parallel shared(params, cells, tmp_cells, obstacles,tot_cells,tot_u)
+#pragma omp parallel deafult(shared) shared(params, cells, tmp_cells, obstacles)
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
