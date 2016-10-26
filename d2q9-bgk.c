@@ -108,7 +108,7 @@ int finalise(const t_param* params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
 double total_density(const t_param params, t_speed* cells);
 
 /* compute average velocity */
-double av_velocity(const t_param params, t_speed* cells, int* obstacles);
+double av_velocity(const t_param params, t_speed* cells, int* obstacles, int tot_cells, double tot_u);
 
 /* calculate Reynolds number */
 double calc_reynolds(const t_param params, t_speed* cells, int* obstacles);
@@ -121,8 +121,6 @@ void usage(const char* exe);
 ** main program:
 ** initialise, timestep loop, finalise
 */
-int tot_cells;  /* no. of cells used in calculation */
-double tot_u;          /* accumulated magnitudes of velocity for each cell */
 
 int main(int argc, char* argv[])
 {
@@ -152,14 +150,21 @@ int main(int argc, char* argv[])
 
   /* initialise our data structures and load values from file */
   initialise(paramfile, obstaclefile, &params, &cells, &tmp_cells, &obstacles, &av_vels);
+
   /* iterate for maxIters timesteps */
+  int tot_cells = 0;  /* no. of cells used in calculation */
+  double tot_u 0.0;          /* accumulated magnitudes of velocity for each cell */
+
   gettimeofday(&timstr, NULL);
   tic = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
+
 #pragma omp parallel shared(params, cells, tmp_cells, obstacles,tot_u, tot_cells)
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     timestep(params, cells, tmp_cells, obstacles);
-    av_vels[tt] = av_velocity(params, cells, obstacles);
+    av_vels[tt] = av_velocity(params, cells, obstacles,tot_cells,tot_u);
+    tot_cells = 0;  /* no. of cells used in calculation */
+    tot_u 0.0;
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
     printf("av velocity: %.12E\n", av_vels[tt]);
