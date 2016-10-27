@@ -286,19 +286,15 @@ int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obsta
 
 int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
-
+  const double w0 = 4.0 / 9.0;  /* weighting factor */
+  const double w1 = 1.0 / 9.0;  /* weighting factor */
+  const double w2 = 1.0 / 36.0; /* weighting factor */
 
   /* loop over the cells in the grid
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-#pragma omp parallel shared(params,cells,tmp_cells,obstacles)
-{
-  const double w0 = 4.0 / 9.0;  /* weighting factor */
-  const double w1 = 1.0 / 9.0;  /* weighting factor */
-  const double w2 = 1.0 / 36.0; /* weighting factor */
-
-  #pragma omp parallel for
+  #pragma omp parallel for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
     for (int ii = 0; ii < params.ny; ii++)
     {
       for (int jj = 0; jj < params.nx; jj++)
@@ -358,7 +354,7 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
         }
       }
     }
-  }
+
   return EXIT_SUCCESS;
 }
 
