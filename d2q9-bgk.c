@@ -294,69 +294,66 @@ int collision(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obs
   ** NB the collision step is called after
   ** the propagate step and so values of interest
   ** are in the scratch-space grid */
-  int inducVar = 0;
-  for (int ii = 0; ii < params.ny; ii++)
-  {
-    for (int jj = 0; jj < params.nx; jj++)
+  #pragma omp parallel for shared(w0,w1,w2,params,cells,tmp_cells,obstacles)
+    for (int ii = 0; ii < params.ny; ii++)
     {
-      /* don't consider occupied cells */
-
-      if (!obstacles[inducVar + jj])
+      for (int jj = 0; jj < params.nx; jj++)
       {
-        int cellAccess = inducVar + jj;
-        /* local density total */
-        double local_density = 0.0;
-        for (int kk = 0; kk < NSPEEDS; kk++)
+        /* don't consider occupied cells */
+        if (!obstacles[ii * params.nx + jj])
         {
-          local_density += tmp_cells[cellAccess].speeds[kk];
-        }
+          int cellAccess = ii * params.nx + jj;
+          /* compute local density total */
+          double local_density = 0.0;
+          for (int kk = 0; kk < NSPEEDS; kk++)
+          {
+            local_density += tmp_cells[cellAccess].speeds[kk];
+          }
+          /* compute x velocity component */
+          double u_x = (tmp_cells[cellAccess].speeds[1]
+                        + tmp_cells[cellAccess].speeds[5]
+                        + tmp_cells[cellAccess].speeds[8]
+                        - (tmp_cells[cellAccess].speeds[3]
+                           + tmp_cells[cellAccess].speeds[6]
+                           + tmp_cells[cellAccess].speeds[7]))
+                       / local_density;
+          /* compute y velocity component */
+          double u_y = (tmp_cells[cellAccess].speeds[2]
+                        + tmp_cells[cellAccess].speeds[5]
+                        + tmp_cells[cellAccess].speeds[6]
+                        - (tmp_cells[cellAccess].speeds[4]
+                           + tmp_cells[cellAccess].speeds[7]
+                           + tmp_cells[cellAccess].speeds[8]))
+                       / local_density;
 
-        /* compute x velocity component */
-        double u_x = (tmp_cells[cellAccess].speeds[1]
-                    + tmp_cells[cellAccess].speeds[5]
-                    + tmp_cells[cellAccess].speeds[8]
-                    - (tmp_cells[cellAccess].speeds[3]
-                       + tmp_cells[cellAccess].speeds[6]
-                       + tmp_cells[cellAccess].speeds[7]))
-                   / local_density;
-      /* compute y velocity component */
-        double u_y = (tmp_cells[cellAccess].speeds[2]
-                    + tmp_cells[cellAccess].speeds[5]
-                    + tmp_cells[cellAccess].speeds[6]
-                    - (tmp_cells[cellAccess].speeds[4]
-                       + tmp_cells[cellAccess].speeds[7]
-                       + tmp_cells[cellAccess].speeds[8]))
-                   / local_density;
+          /* velocity squared */
+          double u_sq = u_x * u_x + u_y * u_y;
+          /* equilibrium densities */
+          double d_equ[NSPEEDS];
+          /* zero velocity density: weight w0 */
+          d_equ[0] = w0 * local_density * (1.0 - 1.5 * u_sq);
+          /* axis speeds: weight w1 */
+          d_equ[1] = w1 * local_density * (1.0 + 3 * (u_x + u_x * u_x) - 1.5 * u_y * u_y);
+          d_equ[2] = w1 * local_density * (1.0 + 3 * (u_y + u_y * u_y) - 1.5 * u_x * u_x);
+          d_equ[3] = w1 * local_density * (1.0 + 3 * (-u_x + u_x * u_x) - 1.5 * u_y * u_y);
+          d_equ[4] = w1 * local_density * (1.0 + 3 * (-u_y + u_y * u_y) - 1.5 * u_x *u_x);
+          /* diagonal speeds: weight w2 */
+          d_equ[5] = w2 * local_density * (1.0 + 3 * (u_sq + u_x + u_y) + 9 * u_x * u_y);
+          d_equ[6] = w2 * local_density * (1.0 + 3 * (u_sq - u_x + u_y) - 9 * u_x * u_y);
+          d_equ[7] = w2 * local_density * (1.0 + 3 * (u_sq - u_x - u_y) + 9 * u_x * u_y);
+          d_equ[8] = w2 * local_density * (1.0 + 3 * (u_sq + u_x - u_y) - 9 * u_x * u_y);
 
-                     /* velocity squared */
-       double u_sq = u_x * u_x + u_y * u_y;
-       /* equilibrium densities */
-       double d_equ[NSPEEDS];
-       /* zero velocity density: weight w0 */
-       d_equ[0] = w0 * local_density * (1.0 - 1.5 * u_sq);
-       /* axis speeds: weight w1 */
-       d_equ[1] = w1 * local_density * (1.0 + 3 * (u_x + u_x * u_x) - 1.5 * u_y * u_y);
-       d_equ[2] = w1 * local_density * (1.0 + 3 * (u_y + u_y * u_y) - 1.5 * u_x * u_x);
-       d_equ[3] = w1 * local_density * (1.0 + 3 * (-u_x + u_x * u_x) - 1.5 * u_y * u_y);
-       d_equ[4] = w1 * local_density * (1.0 + 3 * (-u_y + u_y * u_y) - 1.5 * u_x *u_x);
-       /* diagonal speeds: weight w2 */
-       d_equ[5] = w2 * local_density * (1.0 + 3 * (u_sq + u_x + u_y) + 9 * u_x * u_y);
-       d_equ[6] = w2 * local_density * (1.0 + 3 * (u_sq - u_x + u_y) - 9 * u_x * u_y);
-       d_equ[7] = w2 * local_density * (1.0 + 3 * (u_sq - u_x - u_y) + 9 * u_x * u_y);
-       d_equ[8] = w2 * local_density * (1.0 + 3 * (u_sq + u_x - u_y) - 9 * u_x * u_y);
+          /* relaxation step */
 
-
-        /* relaxation step */
-        for (int kk = 0; kk < NSPEEDS; kk++)
-        {
-            cells[cellAccess].speeds[kk] = tmp_cells[cellAccess].speeds[kk]
-                                                    + params.omega
-                                                    * (d_equ[kk] - tmp_cells[cellAccess].speeds[kk]);
+          for (int kk = 0; kk < NSPEEDS; kk++)
+            {
+              cells[cellAccess].speeds[kk] = tmp_cells[cellAccess].speeds[kk]
+                                                      + params.omega
+                                                      * (d_equ[kk] - tmp_cells[cellAccess].speeds[kk]);
+            }
         }
       }
     }
-    inducVar += params.nx;
-  }
 
   return EXIT_SUCCESS;
 }
